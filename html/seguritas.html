@@ -2,37 +2,44 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Seguridad</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seguridad | Conciertos Conectados</title> 
     <link rel="stylesheet" href="../css/admin.css">
 </head>
 <body class="fondo-negro-login">
 
     <div class="contenedor-login">
-        <h1 class="titulo-naranja">Acceso de Administrador</h1>
-        
-        <form id="form-login" class="tarjeta-login">
-            <div class="campo">
-                <label>Nombre</label>
-                <input type="text" id="nombre-admin" placeholder="Escribe tu nombre" required>
+        <div class="tarjeta-login">
+            <div class="header-login">
+                <span class="badge-admin">Módulo Administrativo</span>
+                <h1 class="titulo-naranja">Acceso de Administrador</h1>
             </div>
             
-            <div class="campo">
-                <label>Correo Electrónico</label>
-                <input type="email" id="email-admin" placeholder="admin@mail.com" required>
-            </div>
-            
-            <div class="campo">
-                <label>Contraseña</label>
-                <input type="password" id="pass-admin" placeholder="******" required>
-            </div>
+            <form id="form-login">
+                <div class="campo">
+                    <label for="nombre-admin">Nombre de usuario</label>
+                    <input type="text" id="nombre-admin" placeholder="Escribe tu nombre" required autocomplete="off">
+                </div>
+                
+                <div class="campo">
+                    <label for="email-admin">Correo Electrónico</label>
+                    <input type="email" id="email-admin" placeholder="admin@mail.com" required autocomplete="off">
+                </div>
+                
+                <div class="campo">
+                    <label for="pass-admin">Contraseña</label>
+                    <input type="password" id="pass-admin" placeholder="••••••••" required>
+                </div>
 
-            <div class="botones-login">
-                <button type="submit" class="btn-guardar">Ingresar</button>
-                <a href="../index.html" class="btn-cancelar">Pa` atras</a>
-            </div>
-        </form>
+                <div class="botones-login">
+                    <button type="submit" class="btn-guardar">Ingresar al sistema</button>
+                    <a href="../index.html" class="btn-cancelar">← Regresar al inicio</a>
+                </div>
+            </form>
+        </div>
     </div>
 
+    <!-- Script de validación intacto -->
     <script src="../js/seguritas.js"></script>
 </body>
 </html>

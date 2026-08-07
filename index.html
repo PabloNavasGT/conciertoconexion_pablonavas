@@ -6,33 +6,32 @@
     <title>Conciertos Conectados | Guatemala</title>
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/inex.css">
-
 </head>
 <body>
 
-    <header class="header-destacados">
-        <h2 class="titulo-naranja">los boletos que quieras</h2>
-        <div class="contenedor-destacados" id="destacados-ui">
+    <!-- Barra de Navegación Superior (Estilo Cinépolis) -->
+    <nav class="top-nav">
+        <div class="logo-container">
+            <h1 style="color: white; margin: 0; font-size: 1.5rem;">Conciertos Conectados</h1>
+        </div>
+        <div class="nav-actions">
+            <a href="html/seguritas.html" class="btn-top">Cuenta de Admin</a>
+        </div>
+    </nav>
 
+    <header class="header-destacados">
+        <h2 class="titulo-naranja">LOS BOLETOS QUE QUIERAS</h2>
+        <div class="contenedor-destacados" id="destacados-ui">
         </div>
     </header>
 
-    <nav class="nav-admin">
-        <a href="html/seguritas.html">cuenta de admin</a>
-    </nav>
-
     <section class="seccion-busqueda">
-        <div class="busqueda-wrapper" style="display: flex; flex-direction: column; gap: 12px; align-items: center; padding: 20px;">
-            
-            <div style="display: flex; gap: 8px; width: 100%; max-width: 650px;">
-                <input type="text" placeholder="Buscar por nombre del evento..." id="input-busqueda" 
-                       style="flex: 1; padding: 12px; border-radius: 8px; border: 1px solid #ff8c00; background: #111; color: white;">
-                
+        <div class="busqueda-wrapper">
+            <div class="search-row">
+                <input type="text" placeholder="Buscar por nombre del evento..." id="input-busqueda">
             </div>
-
-            <div style="display: flex; gap: 10px; width: 100%; max-width: 650px;">
-                
-                <select id="filtro-ciudad" style="flex: 1; padding: 10px; border-radius: 6px; background: #222; color: white; border: 1px solid #555;">
+            <div class="filter-row">
+                <select id="filtro-ciudad">
                     <option value="">Todas las ubicaciones</option>
                     <option value="Xela">Xela</option>
                     <option value="Capital">Capital</option>
@@ -40,22 +39,20 @@
                     <option value="Zona 9-16">Zona 9 - 16</option>
                     <option value="Zona 17-22">Zona 17 - 22</option>
                 </select>
-
-                <select id="filtro-categoria" style="flex: 1; padding: 10px; border-radius: 6px; background: #222; color: white; border: 1px solid #555;">
-                    <option value=""> categorías</option>
-                    </select>
+                <select id="filtro-categoria">
+                    <option value="">Categorías</option>
+                </select>
             </div>
         </div>
     </section>
 
     <main class="grid-principal">
-        <div class="grid-eventos" id="grid-eventos"></div>
+        <div class="grid-eventos" id="grid-eventos">
+        </div>
     </main>
 
     <script src="js/indexdisplay.js"></script>
-
     <script src="js/componentes.js"></script>
-
     <script src="js/matematicashijo.js"></script>
 </body>
 </html>

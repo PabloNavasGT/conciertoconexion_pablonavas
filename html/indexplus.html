@@ -3,33 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin </title>
-    <link rel="stylesheet" href="/css/inexplus.css">
+    <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body class="fondo-negro">
 
     <header class="header-admin">
-        <h1 class="titulo-naranja">Panel de Administración</h1>
-        <button id="btn-cerrar-sesion" class="btn-cancelar"> <a href="/index.html">Cerrar sesion</a></button>
-    </header>
+       <div class="header-contenido">
+            <div class="branding-admin">
+                <span class="badge-admin">Sistema de Control</span>
+                <h1 class="titulo-panel">Panel de Administración</h1>
+            </div>
+            <button id="btn-cerrar-sesion" class="btn-cerrar-sesion">
+                Cerrar sesión
+            </button>
+        </div></header>
 
     <main class="contenedor-modulos">
         <div class="tarjeta-modulo" onclick="window.location.href='categorias.html'">
-            
-            <h2>Categorías</h2>
-            <p>Gestiona los géneros de los eventos (Rock, Pop, etc.)</p>
+        <div class="modulo-header">
+                <span class="modulo-icono">🏷️</span>
+                <h2>Categorías</h2>
+            </div>
+            <p>Gestiona los géneros de los eventos (Rock, Pop, Electrónica, etc.)</p>
+            <span class="link-modulo">Administrar →</span> </div>
         </div>
-
+    </main>    
         <div class="tarjeta-modulo" onclick="window.location.href='eventos.html'">
-           
-            <h2>Eventos</h2>
-            <p> Crea, edita y elimina los conciertos de la plataforma</p>
-        </div>
-
-
+           <div class="modulo-header">
+                <span class="modulo-icono">🎤</span>
+                <h2>Eventos</h2>
+            </div>
+            <p>Crea, edita y elimina los conciertos publicados en la plataforma</p>
+            <span class="link-modulo">Administrar →</span>
         <div class="tarjeta-modulo" onclick="window.location.href='nomires.html'">
 
           <h2>Historial de compras</h2>
             <p>quien, que y cuanto pago   </p>
+        </div>
+
+        <div class="tarjeta-modulo" onclick="window.location.href='ciudades.html'">
+
+          <h2>ciudades</h2>
+            <p>xela, ciudad de guatemala....   </p>
         </div>
     
     </main>

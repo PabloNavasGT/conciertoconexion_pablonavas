@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const indiceReal = conciertosOriginales.indexOf(evento);
             const urlDetalle = `html/detalle.html?id=${indiceReal}`;
             
-            // --- LÓGICA DE AFORO ---
+            //LÓGICA DE AFORO 
             const vendidos = evento.vendidos || 0;
             const aforo = evento.aforo || 0;
             const disponible = aforo - vendidos;
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                  (c.categoria && c.categoria.toLowerCase().includes(termino));
             const coincideCiudad = ciudadSel === "" || c.ciudad === ciudadSel;
             const coincideCategoria = categoriaSel === "" || c.categoria === categoriaSel;
-            
+
             return coincideTexto && coincideCiudad && coincideCategoria;
         });
         renderizar(filtrados);};
