@@ -1,50 +1,51 @@
+const STORAGE_KEY = 'misConciertosData';
+
 document.addEventListener('DOMContentLoaded', () => {
     const tabla = document.getElementById('lista-inventario-body');
-    const STORAGE_KEY = 'misConciertosData';
+    if (!tabla) return;
 
     function cargarInventario() {
-        const datosGuardados = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-        tabla.innerHTML = '';
+        const datosGuardados = DB.get(STORAGE_KEY);
 
         if (datosGuardados.length === 0) {
-            tabla.innerHTML = `<tr><td colspan="6" style="color:white; text-align:center; padding:20px;">No hay conciertos.</td></tr>`;
+            tabla.innerHTML = `<tr><td colspan="6" class="mensaje-vacio-tabla">No hay conciertos.</td></tr>`;
             return;
         }
 
-        datosGuardados.forEach((evento, index) => {
-            const fila = document.createElement('tr');
-            fila.style.borderBottom = "1px solid #333"; 
-
-            fila.innerHTML = `
-                <td><img src="${evento.imagen || ''}" class="img-mini"></td>
+        const htmlFilas = datosGuardados.map((evento, index) => `
+            <tr class="fila-inventario">
+                <td><img src="${evento.imagen || ''}" class="img-mini" alt="${evento.nombre}"></td>
                 <td>
-                    <span style="color:#ff8c00; font-weight:bold;">${evento.nombre}</span><br>
-                    <small style="color:gray;">${evento.categoria || 'Sin cat.'}</small>
+                    <span class="nombre-evento">${evento.nombre}</span><br>
+                    <small class="cat-evento">${evento.categoria || 'Sin cat.'}</small>
                 </td>
-                <td style="color: #00ff00; font-weight: bold;">Q${evento.precio || 0}</td>
+                <td class="precio-evento">Q${evento.precio || 0}</td>
                 <td>${evento.hora || '--:--'}</td>
-                <td style="color: #666;">#${index}</td>
-                <td style="text-align: center;">
-                    <button onclick="editarEvento(${index})" style="background:#ffb700; color:black; border:none; padding:5px 10px; cursor:pointer; border-radius:3px; margin-right:5px; font-weight:bold;">EDITAR</button>
-                    <button onclick="eliminarDelInventario(${index})" class="btn-borrar">BORRAR</button>
+                <td class="id-evento">#${index}</td>
+                <td class="acciones-tabla">
+                    <button class="btn-editar" data-index="${index}">EDITAR</button>
+                    <button class="btn-borrar" data-index="${index}">BORRAR</button>
                 </td>
-            `;
-            tabla.appendChild(fila);
-        });
+            </tr>
+        `).join('');
+
+        tabla.innerHTML = htmlFilas;
     }
 
-    window.editarEvento = (index) => {
-        window.location.href = `eventos.html?editId=${index}`;
-    };
+    tabla.addEventListener('click', (e) => {
+        const target = e.target;
+        const index = target.getAttribute('data-index');
+        if (index === null) return;
 
-    window.eliminarDelInventario = (index) => {
-        if (confirm("¿Borrar concierto, Knight?")) {
-            let actual = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-            actual.splice(index, 1); 
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(actual));
-            cargarInventario(); 
+        if (target.classList.contains('btn-editar')) {
+            window.location.href = `eventos.html?editId=${index}`;
+        } else if (target.classList.contains('btn-borrar')) {
+            if (confirm("¿Borrar concierto, Knight?")) {
+                DB.deleteItem(STORAGE_KEY, index);
+                cargarInventario();
+            }
         }
-    };
+    });
 
     cargarInventario();
 });

@@ -17,3 +17,108 @@ body {
     background-color: var(--negro-puro);
     color: var(--blanco);
 }
+
+/* Reemplaza la animación JS y da la estructura a la tarjeta */
+.card-concierto {
+    transition: transform 0.3s ease;
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.05);
+}
+
+/* Solo escala si NO tiene la clase .agotado */
+.card-concierto:not(.agotado):hover {
+    transform: scale(1.02);
+}
+
+.card-imagen {
+    position: relative;
+    cursor: pointer;
+}
+
+.card-imagen img {
+    width: 100%;
+    display: block;
+    transition: filter 0.3s, opacity 0.3s;
+}
+
+/* Estilos dinámicos para estado Agotado */
+.card-concierto.agotado .card-imagen {
+    cursor: default;
+}
+.card-concierto.agotado img {
+    filter: grayscale(1);
+    opacity: 0.5;
+}
+.card-concierto.agotado .btn-comprar {
+    background: #333;
+    color: #888;
+    border-color: #555;
+    cursor: not-allowed;
+}
+
+/* Formatos de texto e info */
+.card-info {
+    padding: 15px;
+    text-align: center;
+}
+.card-info h3 { color: #ff8c00; margin: 0 0 5px 0; font-size: 1.2rem; }
+.categoria-texto { color: #888; font-size: 0.75rem; margin-bottom: 5px; text-transform: uppercase; }
+.disponibilidad-texto { color: #666; font-size: 0.7rem; margin-bottom: 12px; }
+.disponibilidad-texto.peligro { color: #ff4444; font-weight: bold; }
+
+.btn-comprar {
+    background: black;
+    color: #ff8c00;
+    border: 2px solid #ff8c00;
+    padding: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+.badge-soldout {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: red; color: white; padding: 5px 10px;
+    font-weight: bold; border-radius: 5px;
+}
+.mensaje-vacio {
+    color: white; text-align: center; width: 100%;
+    grid-column: 1/-1; padding: 50px;
+}
+
+/* Estilos para los elementos de la lista del carrito */
+.item-carrito {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #333;
+    color: white;
+}
+
+.texto-naranja {
+    color: #ff8c00;
+}
+
+.btn-eliminar {
+    background: #ff4444;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.btn-eliminar:hover {
+    background: #cc0000;
+}
+
+.mensaje-vacio {
+    color: gray;
+    text-align: center;
+    padding: 20px;
+}
