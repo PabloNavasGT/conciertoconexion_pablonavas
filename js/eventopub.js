@@ -41,22 +41,31 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
     } else {
-        console.error("No se encontró el evento con ID:", idEvento);
-
-    }
+        console.error("No se encontró el evento con ID:", idEvento)}
 
     function registrarVenta(concierto) {
         const historial = JSON.parse(localStorage.getItem('registroVentas')) || [];
+        
+        //historial
         const nuevaVenta = {
-            nombreEvento: concierto.nombre,
-            precio: concierto.precio || 0,
+            cliente: {
+                nombre: "Venta Directa",
+                id: "S/N"
+            },
+            productos: [
+                {
+                    nombre: concierto.nombre,
+                    precio: concierto.precio || 0
+                }
+            ],
+            total: concierto.precio || 0,
             fecha: new Date().toLocaleString(),
-            idVenta: "REF-" + Math.floor(Math.random() * 1000000)
+            idReferencia: "REF-" + Math.floor(Math.random() * 900000 + 100000)
         };
 
         historial.push(nuevaVenta);
         localStorage.setItem('registroVentas', JSON.stringify(historial));
 
-        alert(` ¡Entrada adquirida!\nEvento: ${concierto.nombre}\nPrecio: Q${nuevaVenta.precio}`);
+        alert(`¡Entrada adquirida!\nEvento: ${concierto.nombre}\nPrecio: Q${nuevaVenta.total}`);
     }
-});s
+});

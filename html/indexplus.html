@@ -2,56 +2,60 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Admin </title>
+    <title>Admin</title>
     <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body class="fondo-negro">
-
+    
     <header class="header-admin">
        <div class="header-contenido">
+         
             <div class="branding-admin">
                 <span class="badge-admin">Sistema de Control</span>
-                <h1 class="titulo-panel">Panel de Administración</h1>
+                <h1 class="titulo-panel">Panel de Administración, bienvenido!</h1>
             </div>
-            <button id="btn-cerrar-sesion" class="btn-cerrar-sesion">
-                Cerrar sesión
-            </button>
-        </div></header>
-
+    </header>
+    
+    </main>
     <main class="contenedor-modulos">
         <div class="tarjeta-modulo" onclick="window.location.href='categorias.html'">
-        <div class="modulo-header">
+            <div class="modulo-header">
                 <span class="modulo-icono"></span>
                 <h2>Categorías</h2>
             </div>
             <p>Los géneros de los eventos (Rock, Pop, Electrónica, etc...)</p>
-            <span class="link-modulo">Administrar</span> </div>
+            <span class="link-modulo">Administrar →</span>
         </div>
-    </main>
 
-    
         <div class="tarjeta-modulo" onclick="window.location.href='eventos.html'">
-           <div class="modulo-header">
+            <div class="modulo-header">
                 <span class="modulo-icono"></span>
-                <h2>Eventos</h2>
+                <h2>Crear eventos</h2>
             </div>
             <p>Crea, edita y elimina los conciertos publicados en la plataforma</p>
             <span class="link-modulo">Administrar →</span>
-        <div class="tarjeta-modulo" onclick="window.location.href='nomires.html'">
+        </div>
 
-          <h2>Historial de compras</h2>
-            <p>quien, que y cuanto pago   </p>
+        <div class="tarjeta-modulo" onclick="window.location.href='nomires.html'">
+            <h2>Historial de compras</h2>
+            <p>Quién, qué y cuánto pagó</p>
+            <span class="link-modulo">Administrar →</span>
         </div>
 
         <div class="tarjeta-modulo" onclick="window.location.href='ciudades.html'">
-
-          <h2>ciudades</h2>
-            <p>xela, ciudad de guatemala....   </p>
+            <h2>Ciudades</h2>
+            <p>Xela, Ciudad de Guatemala...</p>
+            <span class="link-modulo">Administrar →</span>
         </div>
-    
+
+         <div class="tarjeta-modulo" onclick="window.location.href='invaneventos.html'">
+            <h2>Eventos ya listos</h2>
+            <p>mira todos los eventos.</p>
+            <span class="link-modulo">Administrar →</span>
+        </div>
     </main>
 
-    <script>
+    <script> 
         document.getElementById('btn-cerrar-sesion').onclick = () => {
             window.location.href = 'login.html';
         };

@@ -9,7 +9,6 @@
 </head>
 <body>
 
-    <!-- Barra de Navegación Superior (Estilo Cinépolis) -->
     <nav class="top-nav">
         <div class="logo-container">
             <h1 style="color: white; margin: 0; font-size: 1.5rem;">Conciertos Conectados</h1>
@@ -26,23 +25,18 @@
     </header>
 
     <section class="seccion-busqueda">
-        <div class="busqueda-wrapper">
-            <div class="search-row">
-                <input type="text" placeholder="Buscar por nombre del evento..." id="input-busqueda">
-            </div>
-            <div class="filter-row">
-                <select id="filtro-ciudad">
-                    <option value="">Todas las ubicaciones</option>
-                    <option value="Xela">Xela</option>
-                    <option value="Capital">Capital</option>
-                    <option value="Zona 1-8">Zona 1 - 8</option>
-                    <option value="Zona 9-16">Zona 9 - 16</option>
-                    <option value="Zona 17-22">Zona 17 - 22</option>
-                </select>
-                <select id="filtro-categoria">
-                    <option value="">Categorías</option>
-                </select>
-            </div>
+    <div class="busqueda-wrapper">
+        <div class="search-row">
+            <input type="text" placeholder="Buscar por nombre del evento..." id="input-busqueda">
+        </div>
+        <div class="filter-row">
+            <select id="filtro-ciudad">
+                <option value="">Todas las ubicaciones</option>
+            </select>
+            <select id="filtro-categoria">
+                <option value="">Todas las categorías</option>
+            </select>
+        </div>
         </div>
     </section>
 
@@ -51,6 +45,7 @@
         </div>
     </main>
 
+    <script src="js/import.js"></script>
     <script src="js/indexdisplay.js"></script>
     <script src="js/componentes.js"></script>
     <script src="js/matematicashijo.js"></script>

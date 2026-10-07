@@ -18,31 +18,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const ubicacionTexto = document.getElementById('det-ubicacion');
         if (ubicacionTexto) {
-            
             ubicacionTexto.textContent = `Ubicación: ${evento.ciudad || 'Guatemala City (Sede Central)'}`;
         }
 
         const btnComprar = document.getElementById('btn-comprar-det');
+        const inputCantidad = document.getElementById('cantidad-boletos');
         
         btnComprar.onclick = () => {
+            // Leer la cantidad ingresada (mínimo 1)
+            const cantidad = Math.max(1, parseInt(inputCantidad.value) || 1);
+
             const itemCarrito = {
                 nombre: evento.nombre,
                 precio: evento.precio || 0,
                 imagen: evento.imagen,
-                idOriginal: id 
+                idOriginal: id,
+                cantidad: cantidad
             };
 
             const carritoActual = JSON.parse(localStorage.getItem(CARRITO_KEY)) || [];
 
-            carritoActual.push(itemCarrito);
+            // Si se agregan múltiples entradas, guardamos los elementos según la cantidad elegida
+            for (let i = 0; i < cantidad; i++) {
+                carritoActual.push({
+                    nombre: evento.nombre,
+                    precio: evento.precio || 0,
+                    imagen: evento.imagen,
+                    idOriginal: id
+                });
+            }
 
             localStorage.setItem(CARRITO_KEY, JSON.stringify(carritoActual));
 
-            alert(`¡${evento.nombre} agregado al carrito!`);
-            window.location.href = 'carrito.html'; 
+            alert(`¡${cantidad} entrada(s) para "${evento.nombre}" agregada(s) al carrito!`);
+            window.location.href = 'carrito.html'; // Redirige al carrito con la versión estándar
         };
 
     } else {
-        document.body.innerHTML = "<h1 style='color:white; text-align:center; margin-top:50px;'>Evento no encontrado 🚫</h1>";
+        document.body.innerHTML = "<h1 style='color:white; text-align:center; margin-top:50px;'>Evento no encontrado</h1>";
     }
 });

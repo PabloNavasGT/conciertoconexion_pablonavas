@@ -1,23 +1,39 @@
-<main style="background: #222; color: white; padding: 20px; border-radius: 10px; border: 1px solid #ff8c00; max-width: 800px; margin: 20px auto;">
-    <div id="detalle-evento" style="display: flex; flex-wrap: wrap; gap: 20px;">
-        <div style="flex: 1; min-width: 300px;">
-            <img id="pub-imagen" src="" alt="Poster" style="width: 100%; border-radius: 5px; border: 1px solid #444;">
-        </div>
-        
-        <div style="flex: 1; min-width: 300px;">
-            <h1 id="pub-nombre" style="color: #ff8c00; margin-top: 0;">Nombre del Artista</h1>
-            <p id="pub-categoria" style="background: #444; display: inline-block; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem;"></p>
-            
-            <div style="margin: 20px 0; border-left: 3px solid #ff8c00; padding-left: 15px;">
-                <p><strong> Hora:</strong> <span id="pub-hora">--:--</span></p>
-                <p><strong> Precio:</strong> <span id="pub-precio" style="color: #ff8c00; font-size: 1.2rem; font-weight: bold;">Q0.00</span></p>
-            </div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Evento</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body class="fondo-negro">
 
-            <p id="pub-descripcion" style="line-height: 1.6; color: #ccc;"></p>
+    <main style="background: #222; color: white; padding: 20px; border-radius: 10px; border: 1px solid #ff8c00; max-width: 800px; margin: 40px auto;">
+        <div id="detalle-evento" style="display: flex; flex-wrap: wrap; gap: 20px;">
+            <div style="flex: 1; min-width: 300px;">
+                <img id="pub-imagen" src="" alt="Poster" style="width: 100%; border-radius: 5px; border: 1px solid #444;">
+            </div>
             
-            <button id="btn-comprar-detalle" style="background: #ff8c00; color: black; border: none; padding: 15px 30px; font-size: 1rem; font-weight: bold; cursor: pointer; border-radius: 5px; width: 100%;">
-                ADQUIRIR ENTRADAS
-            </button>
+            <div style="flex: 1; min-width: 300px;">
+                <h1 id="pub-nombre" style="color: #ff8c00; margin-top: 0;">Nombre del Artista</h1>
+                <p id="pub-categoria" style="background: #444; display: inline-block; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem;"></p>
+                
+                <div style="margin: 20px 0; border-left: 3px solid #ff8c00; padding-left: 15px;">
+                    <p><strong>Hora:</strong> <span id="pub-hora">--:--</span></p>
+                    <p><strong>Precio:</strong> <span id="pub-precio" style="color: #ff8c00; font-size: 1.2rem; font-weight: bold;">Q0.00</span></p>
+                </div>
+
+                <p id="pub-descripcion" style="line-height: 1.6; color: #ccc;"></p>
+                
+                <button id="btn-comprar-detalle" style="background: #ff8c00; color: black; border: none; padding: 15px 30px; font-size: 1rem; font-weight: bold; cursor: pointer; border-radius: 5px; width: 100%;">
+                    ADQUIRIR ENTRADAS
+                </button>
+            </div>
         </div>
-    </div>
-</main>
+    </main>
+
+    <script src="../js/import.js"></script>
+    <script src="../js/eventopub.js"></script>
+</body>
+</html>

@@ -4,18 +4,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const inputBusqueda = document.getElementById('input-busqueda');
     const btnFiltroMorado = document.getElementById('btn-filtro');
-   const filtroCiudad = document.getElementById('filtro-ciudad');
+    const filtroCiudad = document.getElementById('filtro-ciudad');
     const filtroCategoria = document.getElementById('filtro-categoria'); 
+
+    // Obtener datos centralizados desde localStorage mediante la helper DB
     const conciertosOriginales = DB.get('misConciertosData'); 
     const categoriasGuardadas = DB.get('misCategoriasData');
+    const ciudadesGuardadas = DB.get('misCiudadesData');
 
+    // Carga dinámicamente el select de Categorías de Música
     function cargarCategoriasDinamicas() {
         if (!filtroCategoria) return;
-        const opcionesHTML = categoriasGuardadas.map(cat => `<option value="${cat.nombre}">${cat.nombre}</option>`).join('');
+        const opcionesHTML = categoriasGuardadas
+            .map(cat => `<option value="${cat.nombre}">${cat.nombre}</option>`)
+            .join('');
         filtroCategoria.innerHTML = '<option value="">Todas las categorías</option>' + opcionesHTML;
     }
 
- function renderizar(lista) {
+    // Carga dinámicamente el select de Ubicaciones / Ciudades
+    function cargarCiudadesDinamicas() {
+        if (!filtroCiudad) return;
+        const opcionesHTML = ciudadesGuardadas
+            .map(ciudad => `<option value="${ciudad}">${ciudad}</option>`)
+            .join('');
+        filtroCiudad.innerHTML = '<option value="">Todas las ubicaciones</option>' + opcionesHTML;
+    }
+
+    function renderizar(lista) {
         if (lista.length === 0) {
             contenedor.innerHTML = `<h2 class="mensaje-vacio">No hay coincidencias en esta zona, Knight 🔍</h2>`;
             return;
@@ -55,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         contenedor.innerHTML = htmlTarjetas;
     }
 
-    // Delegación de clics: maneja la navegación sin inline onclick
+    // Delegación de eventos para la navegación
     contenedor.addEventListener('click', (e) => {
         const elementoConUrl = e.target.closest('[data-url]');
         if (elementoConUrl && !elementoConUrl.hasAttribute('disabled')) {
@@ -64,16 +79,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Lógica de filtrado combinado (Texto + Ubicación + Categoría)
     const ejecutarFiltros = () => {
         const termino = inputBusqueda?.value.toLowerCase().trim() || '';
         const ciudadSel = filtroCiudad?.value || '';
         const categoriaSel = filtroCategoria?.value || '';
 
-    const filtrados = conciertosOriginales.filter(c => {
-        const coincideTexto = c.nombre.toLowerCase().includes(termino) || (c.categoria && c.categoria.toLowerCase().includes(termino));
-        const coincideCiudad = ciudadSel === "" || c.ciudad === ciudadSel;
-        const coincideCategoria = categoriaSel === "" || c.categoria === categoriaSel;
-        return coincideTexto && coincideCiudad && coincideCategoria;
+        const filtrados = conciertosOriginales.filter(c => {
+            const coincideTexto = c.nombre.toLowerCase().includes(termino) || 
+                                 (c.categoria && c.categoria.toLowerCase().includes(termino));
+            const coincideCiudad = ciudadSel === "" || c.ciudad === ciudadSel;
+            const coincideCategoria = categoriaSel === "" || c.categoria === categoriaSel;
+
+            return coincideTexto && coincideCiudad && coincideCategoria;
         });
         
         renderizar(filtrados);
@@ -90,6 +108,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Inicialización dinámica
     cargarCategoriasDinamicas(); 
+    cargarCiudadesDinamicas();
     renderizar(conciertosOriginales);
 });
