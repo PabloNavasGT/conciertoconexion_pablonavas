@@ -1,20 +1,587 @@
+/* ==========================================================================
+   1. VARIABLES GLOBALES Y RESET
+   ========================================================================== */
 :root {
-    --amarillo-fondo: #fca311;
-    --negro-puro: #0b0f19; /* Oscurecido para estilo cine */
-    --naranja-texto: #ff8c00;
-    --gris-nav: #1c212e;
-    --morado-btn: #a98fe3;
+    --fondo-rock: #03031c;         
+    --tarjeta-bg: #0d1028;           
+    --tarjeta-hover: #141838;        
+    
+    --naranja-fuego: #ff5500;        
+    --amarillo-neon: #ffcc00;       
+    
+    --gris-input: #161a38;           
+    --borde-input: #282f5e;          
+    --texto-suave: #9ea8d8;          
     --blanco: #ffffff;
+    
+    /* Efectos de brillo y sombra neón */
+    --glow-naranja: 0 0 15px rgba(255, 85, 0, 0.5);
+    --glow-amarillo: 0 0 15px rgba(255, 204, 0, 0.5);
 }
 
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--negro-puro);
+    background-color: var(--fondo-rock);
     color: var(--blanco);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* ==========================================================================
+   2. CABECERA PUNK UNIFICADA (.top-nav y .header-admin)
+   ========================================================================== */
+.top-nav,
+.header-admin {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 40px 24px 40px;
+    background-color: #0a0a0a;
+    position: sticky;
+    top: 0;
+    z-index: 900;
+    border-bottom: 4px solid var(--amarillo-neon);
+    box-shadow: 0 8px 25px rgba(255, 204, 0, 0.25);
+    
+    /* Recorte geométrico punk: Bisel en esquinas + Puntas/Púas salientes hacia abajo */
+    clip-path: polygon(
+        0 0, 
+        100% 0, 
+        100% calc(100% - 15px), 
+        calc(100% - 15px) calc(100% - 15px), 
+        calc(100% - 30px) 100%, 
+        calc(100% - 45px) calc(100% - 15px), 
+        45px calc(100% - 15px), 
+        30px 100%, 
+        15px calc(100% - 15px), 
+        0 calc(100% - 15px)
+    );
+}
+
+.header-contenido {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Títulos e Identidad Punk */
+.logo-titulo,
+.titulo-panel {
+    color: var(--amarillo-neon);
+    font-size: 1.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-shadow: 2px 2px 0px var(--naranja-fuego), -1px -1px 0px #000;
+}
+
+.branding-admin {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* Botones de Navegación Punk */
+.btn-top,
+.btn-cerrar-sesion {
+    display: inline-block;
+    padding: 8px 20px;
+    background: var(--amarillo-neon);
+    color: #000000;
+    border: 2px solid var(--blanco);
+    border-radius: 0px;
+    font-weight: 900;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    box-shadow: 3px 3px 0px var(--naranja-fuego);
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+}
+
+.btn-top:hover,
+.btn-cerrar-sesion:hover {
+    background: var(--naranja-fuego);
+    color: var(--blanco);
+    box-shadow: 2px 2px 0px var(--amarillo-neon);
+    transform: translate(1px, 1px);
+}
+
+.nav-admin {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.btn-nav {
+    color: var(--amarillo-neon);
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 6px 12px;
+    border: 1px dashed var(--naranja-fuego);
+    transition: all 0.2s ease;
+}
+
+.btn-nav:hover {
+    background-color: var(--naranja-fuego);
+    color: #000;
+}
+
+/* ==========================================================================
+   3. LOGIN Y AUTENTICACIÓN
+   ========================================================================== */
+body.fondo-negro-login {
+    background-color: var(--fondo-rock);
+    background-image: 
+        radial-gradient(circle at 50% 30%, rgba(255, 85, 0, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 80% 80%, rgba(255, 204, 0, 0.08) 0%, transparent 50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.contenedor-login {
+    width: 100%;
+    max-width: 420px;
+}
+
+.tarjeta-login {
+    background-color: var(--tarjeta-bg);
+    padding: 40px 35px;
+    border: 1px solid rgba(255, 85, 0, 0.3);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), var(--glow-naranja);
+}
+
+.header-login {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.badge-admin {
+    display: inline-block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    color: var(--amarillo-neon);
+    background: rgba(255, 204, 0, 0.1);
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+    border: 1px solid var(--amarillo-neon);
+    box-shadow: var(--glow-amarillo);
+}
+
+.titulo-naranja {
+    color: var(--blanco);
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+.campo {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.campo label {
+    display: block;
+    color: var(--texto-suave);
+    margin-bottom: 8px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.campo input {
+    width: 100%;
+    padding: 12px 16px;
+    background-color: var(--gris-input);
+    border: 1px solid var(--borde-input);
+    border-radius: 8px;
+    color: var(--blanco);
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.campo input::placeholder {
+    color: #556096;
+}
+
+.campo input:focus {
+    border-color: var(--amarillo-neon);
+    box-shadow: var(--glow-amarillo);
+    background-color: #1a1f42;
+}
+
+.botones-login {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.btn-guardar {
+    background: linear-gradient(135deg, var(--naranja-fuego), var(--amarillo-neon));
+    color: #000000;
+    border: none;
+    padding: 14px;
+    border-radius: 25px;
+    font-weight: 800;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-guardar:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 5px 20px rgba(255, 85, 0, 0.6);
+}
+
+.btn-guardar:active {
+    transform: translateY(0);
+}
+
+.btn-cancelar {
+    color: var(--texto-suave);
+    text-decoration: none;
+    font-size: 0.88rem;
+    text-align: center;
+    padding: 8px;
+    transition: color 0.3s ease;
+}
+
+.btn-cancelar:hover {
+    color: var(--amarillo-neon);
+}
+
+/* ==========================================================================
+   4. PANEL ADMIN Y TARJETAS ROCKERAS (indexplus.html)
+   ========================================================================== */
+body.fondo-negro-panel {
+    min-height: 100vh;
+    background-color: var(--fondo-rock);
+}
+
+.contenedor-modulos {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+}
+
+.tarjeta-modulo {
+    background-color: var(--tarjeta-bg);
+    border: 1px solid rgba(255, 85, 0, 0.25);
+    border-radius: 14px;
+    padding: 28px 24px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+    position: relative;
+    overflow: hidden;
+}
+
+.tarjeta-modulo::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--naranja-fuego), var(--amarillo-neon));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.tarjeta-modulo:hover {
+    transform: translateY(-8px);
+    background-color: var(--tarjeta-hover);
+    border-color: var(--amarillo-neon);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.8), var(--glow-naranja);
+}
+
+.tarjeta-modulo:hover::before {
+    opacity: 1;
+}
+
+.modulo-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.modulo-icono {
+    font-size: 1.6rem;
+}
+
+.tarjeta-modulo h2 {
+    color: var(--blanco);
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.tarjeta-modulo p {
+    color: var(--texto-suave);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.link-modulo {
+    color: var(--amarillo-neon);
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    align-self: flex-start;
+    transition: color 0.2s ease;
+}
+
+.tarjeta-modulo:hover .link-modulo {
+    color: var(--naranja-fuego);
+}
+
+/* ==========================================================================
+   5. FORMULARIO DE EVENTOS
+   ========================================================================== */
+.contenedor-formulario-admin {
+    max-width: 650px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.tarjeta-formulario {
+    background-color: var(--tarjeta-bg);
+    padding: 35px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 85, 0, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), var(--glow-naranja);
+}
+
+.titulo-formulario {
+    text-align: center;
+    color: var(--amarillo-neon);
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+}
+
+#formulario-evento {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.fila-doble {
+    display: flex;
+    gap: 15px;
+}
+
+.fila-doble .campo {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+.campo select,
+.campo textarea {
+    width: 100%;
+    padding: 12px 16px;
+    background-color: var(--gris-input);
+    border: 1px solid var(--borde-input);
+    border-radius: 8px;
+    color: var(--blanco);
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.campo textarea {
+    resize: vertical;
+}
+
+.campo select:focus,
+.campo textarea:focus {
+    border-color: var(--amarillo-neon);
+    box-shadow: var(--glow-amarillo);
+    background-color: #1a1f42;
+}
+
+/* ==========================================================================
+   6. TABLAS Y VENTANAS MODALES
+   ========================================================================== */
+.contenedor-admin-ancho {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.tabla-responsive {
+    overflow-x: auto;
+}
+
+.tabla-custom {
+    width: 100%;
+    border-collapse: collapse;
+    color: var(--blanco);
+    margin-top: 10px;
+}
+
+.tabla-custom th {
+    background-color: rgba(255, 85, 0, 0.15);
+    color: var(--amarillo-neon);
+    padding: 14px;
+    text-align: left;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid var(--naranja-fuego);
+}
+
+.tabla-custom td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--borde-input);
+    font-size: 0.9rem;
+}
+
+.tabla-custom tr:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+    cursor: pointer;
+}
+
+.texto-centro {
+    text-align: center;
+}
+
+.img-mini {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid var(--naranja-fuego);
+}
+
+.btn-borrar {
+    background-color: #ff4444;
+    color: var(--blanco);
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: background 0.2s ease;
+}
+
+.btn-borrar:hover {
+    background-color: #cc0000;
+}
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; 
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-contenido {
+    background-color: var(--tarjeta-bg);
+    border: 2px solid var(--naranja-fuego);
+    border-radius: 14px;
+    width: 90%;
+    max-width: 550px;
+    padding: 30px;
+    color: var(--blanco);
+    box-shadow: 0 0 25px rgba(255, 85, 0, 0.3);
+    position: relative;
+}
+
+.cerrar-modal {
+    position: absolute;
+    top: 15px; right: 20px;
+    font-size: 1.8rem;
+    color: var(--texto-suave);
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.cerrar-modal:hover {
+    color: var(--amarillo-neon);
+}
+
+.detalle-seccion {
+    background: rgba(255, 85, 0, 0.08);
+    border-left: 4px solid var(--naranja-fuego);
+    padding: 12px 16px;
+    margin: 15px 0;
+    border-radius: 6px;
+}
+
+.subtitulo-campo {
+    color: var(--amarillo-neon);
+    margin: 0 0 6px 0;
+    font-size: 0.95rem;
+}
+
+.texto-suave {
+    color: var(--texto-suave);
+    font-size: 0.88rem;
+    margin: 0;
+}
+
+.lista-items-modal {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.lista-items-modal li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--borde-input);
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+}
+
+.total-resumen-modal {
+    text-align: right;
+    margin-top: 20px;
+    font-size: 1.2rem;
+}
+
+.monto-destacado {
+    color: var(--amarillo-neon);
+    font-weight: 800;
+}

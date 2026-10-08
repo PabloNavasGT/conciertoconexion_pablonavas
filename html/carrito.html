@@ -2,24 +2,31 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Carrito :3</title>
     <link rel="stylesheet" href="../css/base.css">
-    <style>
-        .lista-carrito { max-width: 600px; margin: 40px auto; padding: 20px; background: #111; border-radius: 10px; border: 1px solid #ff8c00; }
-        .item-carrito { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #333; color: white; }
-        .btn-quitar { background: #ff4444; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; }
-        .total-box { text-align: right; margin-top: 20px; color: #ff8c00; font-size: 1.5rem; font-weight: bold; }
-        .btn-pagar { background: #00ff00; color: black; width: 100%; padding: 15px; border: none; font-weight: bold; margin-top: 20px; cursor: pointer; }
-    </style>
+    <link rel="stylesheet" href="../css/carrito.css">
 </head>
-<body class="fondo-negro">
-    <div class="lista-carrito">
-        <h2 style="color: #ff8c00;">🛒 Tu Carrito</h2>
-        <div id="contenedor-items"></div>
-        <div class="total-box">Total: Q<span id="suma-total">0</span></div>
-        <button class="btn-pagar" onclick="window.location.href='cobrese.html'">IR A PAGAR</button>
-        <a href="../index.html" style="color: gray; display: block; text-align: center; margin-top: 15px; text-decoration: none;">Seguir buscando eventos</a>
-    </div>
+<body class="fondo-negro-login">
+
+    <main class="contenedor-carrito">
+        <div class="tarjeta-carrito">
+            <h2 class="titulo-carrito">Tu Carrito</h2>
+
+            <div id="contenedor-items"></div>
+
+            <div class="total-box">
+                Total: Q<span id="suma-total">0</span>
+            </div>
+
+            <button class="btn-pagar" onclick="window.location.href='cobrese.html'">
+                IR A PAGAR
+            </button>
+
+            <a href="../index.html" class="link-volver">Seguir buscando eventos</a>
+        </div>
+    </main>
+
     <script src="../js/import.js"></script>
     <script src="../js/carrito.js"></script>
 </body>

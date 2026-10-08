@@ -5,108 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pago</title>
     <link rel="stylesheet" href="../css/base.css">
-    <style>
-        .checkout-container { 
-            max-width: 500px; 
-            margin: 40px auto; 
-            padding: 30px; 
-            background: #111; 
-            border-radius: 12px; 
-            border: 1px solid #ff8c00; 
-            color: white; 
-            box-shadow: 0 0 20px rgba(255, 140, 0, 0.2);
-        }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; color: #ff8c00; font-size: 0.85rem; font-weight: bold; }
-        .form-group input { 
-            width: 100%; 
-            padding: 12px; 
-            background: #222; 
-            border: 1px solid #444; 
-            color: white; 
-            border-radius: 6px; 
-            box-sizing: border-box; 
-        }
-        .form-group input:focus { border-color: #ff8c00; outline: none; }
-        .resumen { 
-            background: rgba(255, 140, 0, 0.1); 
-            padding: 15px; 
-            border-radius: 8px; 
-            margin-bottom: 25px; 
-            text-align: center;
-            border: 1px dashed #ff8c00;
-        }
-        .btn-final { 
-            background: #ff8c00; 
-            color: black; 
-            width: 100%; 
-            padding: 15px; 
-            border: none; 
-            font-weight: bold; 
-            cursor: pointer; 
-            border-radius: 6px; 
-            font-size: 1.1rem;
-            transition: 0.3s;
-        }
-        .btn-final:hover { background: #e67e00; transform: scale(1.02); }
-        .checkbox-group { 
-            display: flex; 
-            align-items: center; 
-            gap: 10px; 
-            margin: 20px 0; 
-            font-size: 0.85rem; 
-            color: #ccc;
-        }
-        .checkbox-group input { width: 18px; height: 18px; cursor: pointer; }
-    </style>
+    <link rel="stylesheet" href="../css/carrito.css">
 </head>
-<body class="fondo-negro">
+<body class="fondo-negro-login">
 
-    <div class="checkout-container">
-        <h2 style="text-align: center; color: #ff8c00; margin-bottom: 10px;">Finalizar Compra</h2>
-        <p style="text-align: center; font-size: 0.9rem; color: #888; margin-bottom: 20px;">Completa tus datos para recibir tus boletas.</p>
-        
-        <div class="resumen">
-            <p style="margin: 0; font-size: 0.9rem;">Total a pagar:</p>
-            <h3 style="margin: 5px 0; font-size: 1.8rem; color: #ff8c00;">Q<span id="suma-total">0</span></h3>
-        </div>
+    <main class="contenedor-carrito">
+        <div class="tarjeta-carrito">
+            <h2 class="titulo-carrito">Finalizar Compra</h2>
+            <p style="text-align: center; color: var(--texto-suave); margin-bottom: 20px; font-size: 0.9rem;">Completa tus datos para recibir tus boletas.</p>
+            
+            <div class="total-box" style="text-align: center; margin-bottom: 25px;">
+                <span style="font-size: 0.9rem; color: var(--texto-suave); display: block;">Total a pagar:</span>
+                Q<span id="suma-total">0</span>
+            </div>
 
-        <div class="form-group">
-            <label>Número de Identificación</label>
-            <input type="text" id="cli-id" placeholder="DPI o Pasaporte">
-        </div>
-        
-        <div class="form-group">
-            <label>Nombre Completo</label>
-            <input type="text" id="cli-nombre" placeholder="Nombre como aparece en tu ID">
-        </div>
-        
-        <div class="form-group">
-            <label>Dirección de domicilio</label>
-            <input type="text" id="cli-direccion" placeholder="Calle, ciudad y país">
-        </div>
-        
-        <div class="form-group">
-            <label>Teléfono</label>
-            <input type="tel" id="cli-telefono" placeholder="Ej: +502 1234 5678">
-        </div>
-        
-        <div class="form-group">
-            <label>Correo Electrónico</label>
-            <input type="email" id="cli-correo" placeholder="ejemplo@correo.com">
-        </div>
+            <form id="formulario-checkout" onsubmit="event.preventDefault();">
+                <div class="campo">
+                    <label for="cli-id">Número de Identificación</label>
+                    <input type="text" id="cli-id" placeholder="DPI o Pasaporte">
+                </div>
+                
+                <div class="campo">
+                    <label for="cli-nombre">Nombre Completo</label>
+                    <input type="text" id="cli-nombre" placeholder="Nombre como aparece en tu ID">
+                </div>
+                
+                <div class="campo">
+                    <label for="cli-direccion">Dirección de domicilio</label>
+                    <input type="text" id="cli-direccion" placeholder="Calle, ciudad y país">
+                </div>
+                
+                <div class="campo">
+                    <label for="cli-telefono">Teléfono</label>
+                    <input type="tel" id="cli-telefono" placeholder="Ej: +502 1234 5678">
+                </div>
+                
+                <div class="campo">
+                    <label for="cli-correo">Correo Electrónico</label>
+                    <input type="email" id="cli-correo" placeholder="ejemplo@correo.com">
+                </div>
 
-        <div class="checkbox-group">
-            <input type="checkbox" id="check-edad">
-            <label for="check-edad">Confirmo que soy mayor de 18 años</label>
-        </div>
+                <div style="display: flex; align-items: center; gap: 10px; margin: 20px 0;">
+                    <input type="checkbox" id="check-edad" style="width: 18px; height: 18px; accent-color: var(--naranja-fuego); cursor: pointer;">
+                    <label for="check-edad" style="color: var(--texto-suave); font-size: 0.88rem; cursor: pointer; margin: 0;">Confirmo que soy mayor de 18 años</label>
+                </div>
 
-        <button class="btn-final" id="btn-finalizar-compra" onclick="finalizarCompra()">CONFIRMAR Y PAGAR</button>
-        
-        <a href="carrito.html" style="display: block; text-align: center; margin-top: 15px; color: #666; text-decoration: none; font-size: 0.8rem;">
-            ← Regresar al carrito
-        </a>
-    </div>
+                <button type="button" class="btn-guardar" id="btn-finalizar-compra" onclick="finalizarCompra()" style="width: 100%;">
+                    CONFIRMAR Y PAGAR
+                </button>
+            </form>
+
+            <a href="carrito.html" class="link-volver">← Regresar al carrito</a>
+        </div>
+    </main>
 
     <script src="../js/import.js"></script>
     <script src="../js/carrito.js"></script>

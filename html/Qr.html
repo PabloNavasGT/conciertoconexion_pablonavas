@@ -4,84 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>¡Gracias por tu visita!</title>
-    <link rel="stylesheet" href="../css/inexplus.css">
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            background-color: #000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden;
-        }
-
-        .contenedor-final {
-            text-align: center;
-            width: 90%;
-            max-width: 600px; /* Reducido para que el QR no sea gigantesco */
-        }
-
-        h1 {
-            color: #ff8c00;
-            font-size: 2.5rem; /* Ajustado para mejor legibilidad */
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            text-shadow: 0 0 15px rgba(255, 140, 0, 0.5);
-        }
-
-        .imagen-grande {
-            width: 100%;
-            height: 50vh; /* Altura ajustada */
-            background-color: white; /* Fondo blanco para legibilidad del QR */
-            object-fit: contain; /* LA CLAVE: No estira ni corta la imagen */
-            padding: 20px; /* Espacio para que el lector del móvil funcione mejor */
-            box-sizing: border-box;
-            border-radius: 15px;
-            border: 4px dashed #ff8c00; /* Estilo de ticket */
-            box-shadow: 0 0 30px rgba(255, 140, 0, 0.2);
-            margin-bottom: 30px;
-        }
-
-        .btn-regresar {
-            display: inline-block;
-            padding: 15px 40px;
-            background-color: #ff8c00;
-            color: #000;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.2rem;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .btn-regresar:hover {
-            background-color: transparent;
-            color: #ff8c00;
-            border-color: #ff8c00;
-            transform: scale(1.1);
-            box-shadow: 0 0 20px rgba(255, 140, 0, 0.4);
-        }
-    </style>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/qr.css">
 </head>
-<body>
+<body class="fondo-negro-login">
 
-    <div class="contenedor-final">
-        <h1>¡NOS VEMOS EN EL SHOW!</h1>
+    <main class="contenedor-checkout" style="max-width: 550px;">
+        <div class="tarjeta-checkout" style="text-align: center;">
+            <h1 class="titulo-checkout" style="font-size: 1.8rem; margin-bottom: 20px;">¡NOS VEMOS EN EL SHOW!</h1>
 
-        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Rickrolling_QR_code.png" 
-             alt="Ticket QR" 
-             class="imagen-grande">
+            <div class="caja-qr-ticket">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Rickrolling_QR_code.png" 
+                     alt="Ticket QR" 
+                     class="qr-imagen">
+            </div>
 
-        <br>
-
-        <a href="../index.html" class="btn-regresar">VOLVER AL INICIO</a>
-    </div>
+            <a href="../index.html" class="btn-guardar" style="display: inline-block; text-decoration: none; padding: 12px 35px; border-radius: 30px;">
+                VOLVER AL INICIO
+            </a>
+        </div>
+    </main>
 
 </body>
 </html>

@@ -2,109 +2,62 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historial de Compras</title>
     <link rel="stylesheet" href="../css/base.css">
-    <style>
-        .admin-container { max-width: 900px; margin: 40px auto; padding: 20px; background: #111; border-radius: 12px; border: 1px solid #ff8c00; color: white; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th { background: #ff8c00; color: black; padding: 12px; text-align: left; }
-        td { padding: 12px; border-bottom: 1px solid #333; font-size: 0.9rem; }
-        tr.fila-compra { cursor: pointer; transition: background 0.2s; }
-        tr.fila-compra:hover { background: #222; }
-        .badge { background: #333; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #ff8c00; }
-
-        /* Estilos del Modal / Ventana Flotante */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(5px);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-contenido {
-            background: #111;
-            border: 2px solid #ff8c00;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 550px;
-            padding: 25px;
-            color: white;
-            box-shadow: 0 0 25px rgba(255, 140, 0, 0.3);
-            position: relative;
-        }
-        .cerrar-modal {
-            position: absolute;
-            top: 15px; right: 20px;
-            font-size: 1.8rem;
-            color: #888;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-        .cerrar-modal:hover { color: #ff8c00; }
-        .detalle-seccion {
-            background: #1e1e1e;
-            border-left: 4px solid #ff8c00;
-            padding: 12px;
-            margin: 10px 0;
-            border-radius: 4px;
-        }
-        .lista-items-modal {
-            list-style: none;
-            padding: 0;
-            margin: 10px 0;
-        }
-        .lista-items-modal li {
-            padding: 8px 0;
-            border-bottom: 1px solid #333;
-            display: flex;
-            justify-content: space-between;
-        }
-    </style>
 </head>
-<body class="fondo-negro">
+<body>
 
-    <div class="admin-container">
-        <h2 style="color: #ff8c00; display: flex; justify-content: space-between; align-items: center;">
-            Registro de Ventas Realizadas
-            <a href="/html/indexplus.html" style="font-size: 0.8rem; color: rgb(107, 106, 105); text-decoration: none;">Volver al Inicio</a>
-        </h2>
+    <header class="header-admin">
+        <div class="header-contenido">
+            <h1 class="titulo-panel">Historial de Ventas</h1>
+            <nav class="nav-admin">
+                <a href="indexplus.html" class="btn-nav">Volver al Panel</a>
+                <a href="../index.html" class="btn-nav">Vista Pública</a>
+            </nav>
+        </div>
+    </header>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Fecha</th>
-                    <th>Referencia</th>
-                    <th>Cliente</th>
-                    <th>Productos</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody id="tabla-ventas"></tbody>
-        </table>
-    </div>
+    <main class="contenedor-admin-ancho">
+        <div class="tarjeta-admin-seccion">
+            <h2 class="subtitulo-seccion">Registro de Ventas Realizadas</h2>
+
+            <div class="tabla-responsive">
+                <table class="tabla-custom">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Referencia</th>
+                            <th>Cliente</th>
+                            <th>Productos</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-ventas"></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
 
     <!-- Modal para ver detalle completo -->
     <div id="modal-detalle-compra" class="modal-overlay">
         <div class="modal-contenido">
             <span class="cerrar-modal" id="btn-cerrar-modal">&times;</span>
-            <h2 style="color: #ff8c00; margin-top: 0;" id="modal-titulo-ref">Detalle de Compra</h2>
-            <p style="color: #888; font-size: 0.85rem;" id="modal-fecha"></p>
+            <h2 class="subtitulo-seccion" id="modal-titulo-ref">Detalle de Compra</h2>
+            <p class="texto-suave" id="modal-fecha"></p>
 
             <div class="detalle-seccion">
-                <h4 style="margin: 0 0 5px 0; color: #ff8c00;">Información del Cliente</h4>
-                <p style="margin: 3px 0;" id="modal-cliente-nombre"></p>
-                <p style="margin: 3px 0; color: #aaa; font-size: 0.85rem;" id="modal-cliente-datos"></p>
+                <h4 class="subtitulo-campo">Información del Cliente</h4>
+                <p id="modal-cliente-nombre"></p>
+                <p class="texto-suave" id="modal-cliente-datos"></p>
             </div>
 
-            <h4 style="margin: 15px 0 5px 0; color: #ff8c00;">Desglose de Entradas</h4>
+            <h4 class="subtitulo-campo">Desglose de Entradas</h4>
             <ul class="lista-items-modal" id="modal-lista-productos"></ul>
 
-            <div style="text-align: right; margin-top: 20px; font-size: 1.3rem;">
+            <div class="total-resumen-modal">
                 <strong>Total Pagado: </strong>
-                <span style="color: #00ff00; font-weight: bold;" id="modal-total-pago"></span>
+                <span class="monto-destacado" id="modal-total-pago"></span>
             </div>
         </div>
     </div>

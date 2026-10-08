@@ -2,37 +2,41 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Ciudades</title>
     <link rel="stylesheet" href="../css/base.css"> 
-    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/plataformas.css"> 
 </head>
+<body>
 
-<body style="background: #111; color: white; font-family: sans-serif;">
-
-    <header style="padding: 20px; border-bottom: 2px solid #ff8c00;">
-        <h1 style="color: #ff8c00;">Administrar Ciudades</h1>
-        <a href="/html/indexplus.html" style="color: white;"> Volver al Panel Admin</a>
-        <a href="/html/eventos.html" style="color: rgb(243, 106, 21); margin-left: 20px;"> Ir a creación de concierto</a>
-        <a href="/index.html" style="color: white;"> Volver al Panel Admin</a>
+    <header class="header-admin">
+        <div class="header-contenido">
+            <h1 class="titulo-panel">Administrar Ciudades</h1>
+            <nav class="nav-admin">
+                <a href="indexplus.html" class="btn-nav">Volver al Panel Admin</a>
+                <a href="eventos.html" class="btn-nav">Ir a creación de concierto</a>
+                <a href="../index.html" class="btn-nav">Vista Pública</a>
+            </nav>
+        </div>
     </header>
 
-    <main style="display: flex; gap: 30px; padding: 20px;">
-        <section style="flex: 1; background: #222; padding: 20px; border-radius: 10px;">
-            <h3>Nueva Ciudad</h3>
-            <input type="text" id="ciudad-nombre" placeholder="Ej. Guatemala, Xela, Antigua..." 
-                   style="width: 100%; padding: 10px; margin-bottom: 15px; background: #333; color: white; border: 1px solid #ff8c00;">
-            
-            <button id="btn-guardar-ciudad" style="background: #ff8c00; color: black; font-weight: bold; padding: 10px 20px; border: none; cursor: pointer;">
+    <main class="contenedor-ciudades">
+        <section class="tarjeta-admin-seccion form-cat">
+            <h3 class="subtitulo-seccion">Nueva Ciudad</h3>
+            <div class="campo">
+                <input type="text" id="ciudad-nombre" placeholder="Ej. Guatemala, Xela, Antigua..." required>
+            </div>
+            <button id="btn-guardar-ciudad" class="btn-guardar">
                 Guardar Ciudad
             </button>
         </section>
 
-        <section style="flex: 2; background: #222; padding: 20px; border-radius: 10px;">
-            <h3>Ciudades Existentes</h3>
-            <ul id="lista-ciudades" style="list-style: none; padding: 0;">
-                </ul>
+        <section class="tarjeta-admin-seccion lista-cat">
+            <h3 class="subtitulo-seccion">Ciudades Existentes</h3>
+            <ul id="lista-ciudades" class="lista-custom"></ul>
         </section>
     </main>
+
     <script src="../js/import.js"></script>
     <script src="../js/ciudades.js"></script>
 </body>

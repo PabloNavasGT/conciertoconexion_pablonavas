@@ -5,85 +5,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crea tus Eventos</title>
     <link rel="stylesheet" href="../css/base.css">
-    <link rel="stylesheet" href="../css/admin.css">
 </head>
-<body style="background: #111; color: white; font-family: sans-serif;">
+<body>
 
-    <header style="padding: 20px; border-bottom: 2px solid #ff8c00; display: flex; justify-content: space-between; align-items: center;">
-        <h1 style="color: #ff8c00; margin: 0;">Quirófano de Eventos</h1>
-        <nav>
-            <a href="indexplus.html" style="color: white; margin-right: 15px; text-decoration: none;"> atras </a>
-            <a href="categorias.html" style="color: white; margin-right: 15px; text-decoration: none;"> Categorías</a>
-            <a href="invaneventos.html" style="color: white; text-decoration: none;"> Volver al Inventario</a>
-        </nav>
+    <header class="header-admin">
+        <div class="header-contenido">
+            <h1 class="titulo-panel">Quirófano de Eventos</h1>
+            <nav class="nav-admin">
+                <a href="indexplus.html" class="btn-nav">Atrás</a>
+                <a href="categorias.html" class="btn-nav">Categorías</a>
+                <a href="invaneventos.html" class="btn-nav">Volver al Inventario</a>
+            </nav>
+        </div>
     </header>
 
-    <main style="max-width: 600px; margin: 40px auto; background: #222; padding: 30px; border-radius: 10px; border: 1px solid #ff8c00;">
-        <h2 style="text-align: center; color: #ff8c00; margin-top: 0;">Crear / Editar Concierto</h2>
+    <main class="contenedor-formulario-admin">
+        <div class="tarjeta-formulario">
+            <h2 class="titulo-formulario">Crear / Editar Concierto</h2>
 
-        <form id="formulario-evento" style="display: flex; flex-direction: column; gap: 15px;">
-            
-            <div>
-                <label style="color: #ff8c00; font-weight: bold;">Nombre del Evento:</label>
-                <input type="text" id="evento-nombre" placeholder="Ej. Humbe Tour 2026" required 
-                       style="width: 100%; padding: 10px; margin-top: 5px; background: #333; color: white; border: 1px solid #555; border-radius: 5px; box-sizing: border-box;">
-            </div>
+            <form id="formulario-evento">
+                
+                <div class="campo">
+                    <label for="evento-nombre">Nombre del Evento:</label>
+                    <input type="text" id="evento-nombre" placeholder="Ej. Humbe Tour 2026" required>
+                </div>
 
-            <div style="display: flex; gap: 10px;">
-                <div style="flex: 1;">
-                    <label style="color: #ff8c00; font-weight: bold;">Categoría:</label>
-                    <select id="evento-categoria" required 
-                            style="width: 100%; padding: 10px; margin-top: 5px; background: #333; color: white; border: 1px solid #555; border-radius: 5px; box-sizing: border-box;">
-                        <option value="">Selecciona...</option>
+                <div class="fila-doble">
+                    <div class="campo">
+                        <label for="evento-categoria">Categoría:</label>
+                        <select id="evento-categoria" required>
+                            <option value="">Selecciona...</option>
+                        </select>
+                    </div>
+                    <div class="campo">
+                        <label for="evento-precio">Precio (Q):</label>
+                        <input type="number" id="evento-precio" placeholder="Ej. 350" required>
+                    </div>
+                </div>
+
+                <div class="campo">
+                    <label for="evento-hora">Hora del Evento:</label>
+                    <input type="time" id="evento-hora" required>
+                </div>
+
+                <div class="campo">
+                    <label for="evento-ciudad">Ubicación (Guatemala):</label>
+                    <select id="evento-ciudad">
+                        <option value="Xela">Xela</option>
+                        <option value="Zona 1-8">Zona 1 - 8</option>
+                        <option value="Zona 9-16">Zona 9 - 16</option>
+                        <option value="Zona 17-22">Zona 17 - 22</option>
                     </select>
                 </div>
-                <div style="flex: 1;">
-                    <label style="color: #ff8c00; font-weight: bold;">Precio (Q):</label>
-                    <input type="number" id="evento-precio" placeholder="Ej. 350" required 
-                           style="width: 100%; padding: 10px; margin-top: 5px; background: #333; color: white; border: 1px solid #555; border-radius: 5px; box-sizing: border-box;">
+
+                <div class="campo">
+                    <label for="evento-aforo">Capacidad Máxima (Aforo):</label>
+                    <input type="number" id="evento-aforo" placeholder="Ej. 100" required>
                 </div>
-            </div>
 
-            <div>
-                <label style="color: #ff8c00; font-weight: bold;">Hora del Evento:</label>
-                <input type="time" id="evento-hora" required 
-                       style="width: 100%; padding: 10px; margin-top: 5px; background: #333; color: white; border: 1px solid #555; border-radius: 5px; box-sizing: border-box;">
-            </div>
+                <div class="campo">
+                    <label for="evento-imagen">URL de la Imagen:</label>
+                    <input type="url" id="evento-imagen" placeholder="https://..." required>
+                </div>
 
-            <div class="form-group" style="margin-bottom: 15px;">
-                <label for="evento-ciudad" style="display: block; color: #ff8c00; margin-bottom: 5px;">Ubicación (Guatemala):</label>
-                 <select id="evento-ciudad" style="width: 100%; padding: 10px; background: #333; color: white; border: 1px solid #ff8c00; border-radius: 5px;">
-                    <option value="Xela">Xela</option>
-                    <option value="Zona 1-8">Zona 1 - 8</option>
-                    <option value="Zona 9-16">Zona 9 - 16</option>
-                    <option value="Zona 17-22">Zona 17 - 22</option>
-                </select>
-            </div>
+                <div class="campo">
+                    <label for="evento-descripcion">Descripción:</label>
+                    <textarea id="evento-descripcion" rows="3" placeholder="Detalles..."></textarea>
+                </div>
 
-            <div>
-                <label style="color: #ff8c00; font-weight: bold;">Capacidad Máxima (Aforo):</label>
-                <input type="number" id="evento-aforo" placeholder="Ej. 100" required 
-                style="width: 100%; padding: 10px; margin-top: 5px; background: #333; color: white; border: 1px solid #555; border-radius: 5px; box-sizing: border-box;">
-            </div>
-
-            <div>
-                <label style="color: #ff8c00; font-weight: bold;">URL de la Imagen:</label>
-                <input type="url" id="evento-imagen" placeholder="https://..." required 
-                       style="width: 100%; padding: 10px; margin-top: 5px; background: #333; color: white; border: 1px solid #555; border-radius: 5px; box-sizing: border-box;">
-            </div>
-
-            <div>
-                <label style="color: #ff8c00; font-weight: bold;">Descripción:</label>
-                <textarea id="evento-descripcion" rows="3" placeholder="Detalles..." 
-                          style="width: 100%; padding: 10px; margin-top: 5px; background: #333; color: white; border: 1px solid #555; border-radius: 5px; box-sizing: border-box; resize: vertical;"></textarea>
-            </div>
-
-            <button type="submit" id="btn-guardar-evento" 
-                    style="background: #ff8c00; color: black; font-size: 1.1rem; font-weight: bold; padding: 12px; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px;">
-                 GUARDAR CONCIERTO
-            </button>
-        </form>
+                <button type="submit" id="btn-guardar-evento" class="btn-guardar">
+                    GUARDAR CONCIERTO
+                </button>
+            </form>
+        </div>
     </main>
+
     <script src="../js/import.js"></script>
     <script src="../js/evento.js"></script>
 </body>
