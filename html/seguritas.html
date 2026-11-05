@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seguridad | Conciertos Conectados</title> 
+    <title>Acceso y Registro | Conciertos Conectados</title> 
     <link rel="stylesheet" href="../css/admin.css">
     <link rel="stylesheet" href="../css/base.css">
 </head>
@@ -11,36 +11,81 @@
 
     <div class="contenedor-login">
         <div class="tarjeta-login">
-            <div class="header-login">
-                <span class="badge-admin">Módulo Administrativo</span>
-                <h1 class="titulo-naranja">Acceso de Administrador</h1>
-            </div>
             
-            <form id="form-login">
-                <div class="campo">
-                    <label for="nombre-admin">Nombre de usuario</label>
-                    <input type="text" id="nombre-admin" placeholder="Escribe tu nombre" required autocomplete="off">
+            <!-- SECCIÓN DE INICIO DE SESIÓN -->
+            <div id="section-login">
+                <div class="header-login">
+                    <span class="badge-admin">Módulo de Acceso</span>
+                    <h1 class="titulo-naranja">Iniciar Sesión</h1>
                 </div>
                 
-                <div class="campo">
-                    <label for="email-admin">Correo Electrónico</label>
-                    <input type="email" id="email-admin" placeholder="admin@mail.com" required autocomplete="off">
-                </div>
-                
-                <div class="campo">
-                    <label for="pass-admin">Contraseña</label>
-                    <input type="password" id="pass-admin" placeholder="••••••••" required>
-                </div>
+                <form id="form-login">
+                    <div class="campo">
+                        <label for="login-email">Correo Electrónico</label>
+                        <input type="email" id="login-email" placeholder="correo@example.com" required autocomplete="off">
+                    </div>
+                    
+                    <div class="campo">
+                        <label for="login-password">Contraseña</label>
+                        <input type="password" id="login-password" placeholder="••••••••" required>
+                    </div>
 
-                <div class="botones-login">
-                    <button type="submit" class="btn-guardar">Ingresar al sistema</button>
-                    <a href="../index.html" class="btn-cancelar">← Regresar al inicio</a>
+                    <div class="botones-login">
+                        <button type="submit" class="btn-guardar">Ingresar al sistema</button>
+                    </div>
+                </form>
+
+                <p style="text-align: center; margin-top: 20px; font-size: 0.88rem; color: var(--texto-suave);">
+                    ¿No tienes una cuenta? <a href="#" id="show-register" style="color: var(--amarillo-neon); font-weight: bold; text-decoration: none;">Regístrate aquí</a>
+                </p>
+            </div>
+
+            <!-- SECCIÓN DE REGISTRO -->
+            <div id="section-register" style="display: none;">
+                <div class="header-login">
+                    <span class="badge-admin">Nuevo Usuario</span>
+                    <h1 class="titulo-naranja">Crear Cuenta</h1>
                 </div>
-            </form>
+                
+                <form id="form-register">
+                    <div class="campo">
+                        <label for="reg-nombre">Nombre Completo</label>
+                        <input type="text" id="reg-nombre" placeholder="Tu nombre" required autocomplete="off">
+                    </div>
+
+                    <div class="campo">
+                        <label for="reg-email">Correo Electrónico</label>
+                        <input type="email" id="reg-email" placeholder="correo@example.com" required autocomplete="off">
+                    </div>
+                    
+                    <div class="campo">
+                        <label for="reg-password">Contraseña</label>
+                        <input type="password" id="reg-password" placeholder="••••••••" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="reg-secret">Código Secreto de Admin (Opcional)</label>
+                        <input type="password" id="reg-secret" placeholder="Deja en blanco si eres cliente">
+                    </div>
+
+                    <div class="botones-login">
+                        <button type="submit" class="btn-guardar">Registrarse</button>
+                    </div>
+                </form>
+
+                <p style="text-align: center; margin-top: 20px; font-size: 0.88rem; color: var(--texto-suave);">
+                    ¿Ya tienes una cuenta? <a href="#" id="show-login" style="color: var(--amarillo-neon); font-weight: bold; text-decoration: none;">Inicia sesión</a>
+                </p>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="../index.html" class="btn-cancelar">← Regresar al inicio</a>
+            </div>
+
         </div>
     </div>
 
-     <script src="../js/import.js"></script>
+    <script src="../js/import.js"></script>
     <script src="../js/seguritas.js"></script>
 </body>
 </html>

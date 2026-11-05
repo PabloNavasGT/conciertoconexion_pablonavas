@@ -1,24 +1,98 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const loginForm = document.getElementById('form-login');
+    const sectionLogin = document.getElementById('section-login');
+    const sectionRegister = document.getElementById('section-register');
+    const showRegister = document.getElementById('show-register');
+    const showLogin = document.getElementById('show-login');
 
-    if (loginForm) {
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault(); 
-            
-            const nombre = document.getElementById('nombre-admin').value;
-            const email = document.getElementById('email-admin').value;
-            const pass = document.getElementById('pass-admin').value;
+    const formLogin = document.getElementById('form-login');
+    const formRegister = document.getElementById('form-register');
 
-            if (nombre === "kiker" && email === "admin@gmail.com" && pass === "123456") {
-                
-                alert(`¡Bienvenido de nuevo, ${nombre}! Acceso concedido.`);
-                
-                localStorage.setItem('adminNombre', nombre);
+    // URL de tu API en el backend de Node.js
+    const AUTH_URL = 'http://localhost:3000/api/auth';
 
-                window.location.href = "../html/indexplus.html";
+    // 1. Cambiar a la vista de Registro
+    if (showRegister) {
+        showRegister.onclick = (e) => {
+            e.preventDefault();
+            sectionLogin.style.display = 'none';
+            sectionRegister.style.display = 'block';
+        };
+    }
 
-            } else {
-                alert("Datos incorrectos. ¡Fi, Fay, FO, solo el administrador tiene paso por aquí! ");
+    // 2. Regresar a la vista de Login
+    if (showLogin) {
+        showLogin.onclick = (e) => {
+            e.preventDefault();
+            sectionRegister.style.display = 'none';
+            sectionLogin.style.display = 'block';
+        };
+    }
+
+    // 3. Petición de Registro hacia MongoDB
+    if (formRegister) {
+        formRegister.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const nombre = document.getElementById('reg-nombre').value;
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+            const adminSecret = document.getElementById('reg-secret').value;
+
+            try {
+                const res = await fetch(`${AUTH_URL}/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nombre, email, password, adminSecret })
+                });
+                const data = await res.json();
+
+                if (res.ok) {
+                    alert(data.mensaje || '¡Cuenta registrada con éxito! Ahora puedes iniciar sesión.');
+                    formRegister.reset();
+                    sectionRegister.style.display = 'none';
+                    sectionLogin.style.display = 'block';
+                } else {
+                    alert(data.error || 'Error al registrarse');
+                }
+            } catch (error) {
+                console.error('Error en registro:', error);
+                alert('No se pudo conectar con el servidor backend.');
+            }
+        });
+    }
+
+    // 4. Petición de Login validando contra MongoDB
+    if (formLogin) {
+        formLogin.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            try {
+                const res = await fetch(`${AUTH_URL}/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await res.json();
+
+                if (res.ok) {
+                    // Guardar sesión activa
+                    localStorage.setItem('usuarioActivo', JSON.stringify(data.usuario));
+                    localStorage.setItem('rol', data.usuario.rol);
+                    
+                    alert(`¡Bienvenido, ${data.usuario.nombre} (${data.usuario.rol.toUpperCase()})!`);
+
+                      if (data.usuario.rol === 'admin') {
+                        window.location.href = 'indexplus.html'; // Al estar en la misma carpeta html/
+                    } else {
+                        window.location.href = '../index.html'; // Sale a la raíz para la cartelera pública
+                    }
+                } else {
+                    alert(data.error || 'Credenciales inválidas');
+                }
+            } catch (error) {
+                console.error('Error en login:', error);
+                alert('No se pudo conectar con el servidor backend.');
             }
         });
     }

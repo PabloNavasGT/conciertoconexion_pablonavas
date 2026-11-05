@@ -3,64 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin</title>
-
     <link rel="stylesheet" href="/css/base.css">
 </head>
 <body class="fondo-negro">
     
-   <header class="header-admin">
+<header class="header-admin">
     <div class="header-contenido">
         <div class="branding-admin">
             <span class="badge-admin">Sistema de Control</span>
-            <h1 class="titulo-panel">Panel de Administración, bienvenido!</h1>
+            <h1 class="titulo-panel">Panel de Administración, ¡bienvenido!</h1>
+        </div>
+        <div style="display: flex; gap: 10px;">
+            <a href="../index.html" class="btn-cerrar-sesion" style="background-color: #2b2b2b; border: 1px solid var(--amarillo-neon); text-decoration: none; padding: 8px 15px; border-radius: 5px; color: white;">← Salir al inicio</a>
+            <button id="btn-cerrar-sesion" class="btn-cerrar-sesion" style="background-color: #C84B31; border: none; cursor: pointer; padding: 8px 15px; border-radius: 5px; color: white;">Cerrar Sesión</button>
         </div>
     </div>
 </header>
 
-    </main>
-    <main class="contenedor-modulos">
-        <div class="tarjeta-modulo" onclick="window.location.href='categorias.html'">
-            <div class="modulo-header">
-                <span class="modulo-icono"></span>
-                <h2>Categorías</h2>
-            </div>
-            <p>Los géneros de los eventos (Rock, Pop, Electrónica, etc...)</p>
-            <span class="link-modulo">Administrar →</span>
+<main class="contenedor-modulos">
+    <div class="tarjeta-modulo" onclick="window.location.href='categorias.html'">
+        <div class="modulo-header">
+            <span class="modulo-icono"></span>
+            <h2>Categorías</h2>
         </div>
+        <p>Los géneros de los eventos (Rock, Pop, Electrónica, etc...)</p>
+        <span class="link-modulo">Administrar →</span>
+    </div>
 
-        <div class="tarjeta-modulo" onclick="window.location.href='eventos.html'">
-            <div class="modulo-header">
-                <span class="modulo-icono"></span>
-                <h2>Crear eventos</h2>
-            </div>
-            <p>Crea, edita y elimina los conciertos publicados en la plataforma</p>
-            <span class="link-modulo">Administrar →</span>
+    <div class="tarjeta-modulo" onclick="window.location.href='eventos.html'">
+        <div class="modulo-header">
+            <span class="modulo-icono"></span>
+            <h2>Crear eventos</h2>
         </div>
+        <p>Crea, edita y elimina los conciertos publicados en la plataforma</p>
+        <span class="link-modulo">Administrar →</span>
+    </div>
 
-        <div class="tarjeta-modulo" onclick="window.location.href='nomires.html'">
+    <div class="tarjeta-modulo" onclick="window.location.href='nomires.html'">
+        <div class="modulo-header">
             <h2>Historial de compras</h2>
-            <p>Quién, qué y cuánto pagó</p>
-            <span class="link-modulo">Administrar →</span>
         </div>
+        <p>Quién, qué y cuánto pagó</p>
+        <span class="link-modulo">Administrar →</span>
+    </div>
 
-        <div class="tarjeta-modulo" onclick="window.location.href='ciudades.html'">
+    <div class="tarjeta-modulo" onclick="window.location.href='ciudades.html'">
+        <div class="modulo-header">
             <h2>Ciudades</h2>
-            <p>Xela, Ciudad de Guatemala...</p>
-            <span class="link-modulo">Administrar →</span>
         </div>
+        <p>Xela, Ciudad de Guatemala...</p>
+        <span class="link-modulo">Administrar →</span>
+    </div>
 
-         <div class="tarjeta-modulo" onclick="window.location.href='invaneventos.html'">
+    <div class="tarjeta-modulo" onclick="window.location.href='invaneventos.html'">
+        <div class="modulo-header">
             <h2>Eventos ya listos</h2>
-            <p>mira todos los eventos.</p>
-            <span class="link-modulo">Administrar →</span>
         </div>
-    </main>
+        <p>Mira todos los eventos.</p>
+        <span class="link-modulo">Administrar →</span>
+    </div>
+</main>
 
-    <script> 
-        document.getElementById('btn-cerrar-sesion').onclick = () => {
-            window.location.href = 'login.html';
-        };
-    </script>
-    <script src="../js/import.js"></script>
+<script> 
+    document.getElementById('btn-cerrar-sesion').onclick = () => {
+        localStorage.removeItem('usuarioActivo');
+        localStorage.removeItem('rol');
+        window.location.href = 'seguritas.html';
+    };
+</script>
+<script src="../js/import.js"></script>
 </body>
 </html>

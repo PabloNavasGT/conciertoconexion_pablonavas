@@ -1,20 +1,29 @@
-/* 1. VARIABLES GLOBALES Y RESET*/
+/* ==========================================================================
+   ESTILO THE LIVING TOMBSTONE (ELEKTRO-PUNK / SYNTH-POP CIBERNÉTICO)
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Share+Tech+Mono&display=swap');
+
 :root {
-    --fondo-rock: #03031c;         
-    --tarjeta-bg: #0d1028;           
-    --tarjeta-hover: #141838;        
+    /* Paleta de colores The Living Tombstone */
+    --fondo-rock: #050508;         /* Negro Absoluto */
+    --tarjeta-bg: #0D0D12;         /* Gris Carbón Profundo */
+    --tarjeta-hover: #15151F;      /* Panel Sintetizador Activo */
     
-    --naranja-fuego: #ff5500;        
-    --amarillo-neon: #ffcc00;       
+    /* Neones de Personajes */
+    --rojo-neon: #FF3300;          /* Rojo/Naranja Neón */
+    --rosa-neon: #FF007F;          /* Magenta Eléctrico */
+    --amarillo-neon: #FFCC00;        /* Amarillo Káustico */
+    --naranja-fuego: #FF3300;        /* Retrocompatibilidad con tu código */
     
-    --gris-input: #161a38;           
-    --borde-input: #282f5e;          
-    --texto-suave: #9ea8d8;          
-    --blanco: #ffffff;
+    --gris-input: #12121A;           
+    --borde-input: #2A2A3A;          
+    --texto-suave: #8A8A9E;          
+    --blanco: #F0F0F5;
     
-    /* Efectos de brillo y sombra neón */
-    --glow-naranja: 0 0 15px rgba(255, 85, 0, 0.5);
-    --glow-amarillo: 0 0 15px rgba(255, 204, 0, 0.5);
+    /* Resplandores Neón Intenso (Glow FX) */
+    --glow-naranja: 0 0 15px rgba(255, 51, 0, 0.6);
+    --glow-rosa: 0 0 15px rgba(255, 0, 127, 0.6);
+    --glow-amarillo: 0 0 15px rgba(255, 204, 0, 0.6);
 }
 
 * {
@@ -26,56 +35,48 @@
 body {
     background-color: var(--fondo-rock);
     color: var(--blanco);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Share Tech Mono', monospace; /* Estética Retro Informática */
+    /* Viñeta oscura periférica */
+    background-image: radial-gradient(circle at center, transparent 40%, rgba(0, 0, 0, 0.85) 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
 }
 
-/* 2. CABECERA PUNK UNIFICADA .top-nav y .header-admin */
+/* 2. CABECERA Y NAVEGACIÓN PUNK/CYBER */
 .top-nav,
 .header-admin {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 40px 24px 40px;
-    background-color: #0a0a0a;
+    padding: 16px 40px 20px 40px;
+    background-color: rgba(13, 13, 18, 0.95);
     position: sticky;
     top: 0;
     z-index: 900;
-    border-bottom: 4px solid var(--amarillo-neon);
-    box-shadow: 0 8px 25px rgba(255, 204, 0, 0.25);
-    
-    /* Recorte geométrico punk: Bisel en esquinas + Puntas/Púas salientes hacia abajo */
-    clip-path: polygon(
-        0 0, 
-        100% 0, 
-        100% calc(100% - 15px), 
-        calc(100% - 15px) calc(100% - 15px), 
-        calc(100% - 30px) 100%, 
-        calc(100% - 45px) calc(100% - 15px), 
-        45px calc(100% - 15px), 
-        30px 100%, 
-        15px calc(100% - 15px), 
-        0 calc(100% - 15px)
-    );
+    border-bottom: 2px solid var(--rojo-neon);
+    box-shadow: 0 0 20px rgba(255, 51, 0, 0.4);
+    backdrop-filter: blur(10px);
 }
 
 .header-contenido {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1400px; /* Ampliado para coincidir con la cartelera principal */
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-/* Títulos e Identidad Punk */
+/* Títulos con Tipografía Industrial y Resplandor Cromático */
 .logo-titulo,
 .titulo-panel {
-    color: var(--amarillo-neon);
-    font-size: 1.5rem;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--blanco);
+    font-size: 1.6rem;
     font-weight: 900;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
-    text-shadow: 2px 2px 0px var(--naranja-fuego), -1px -1px 0px #000;
+    letter-spacing: 2px;
+    text-shadow: 3px 0px 0px var(--rojo-neon), -3px 0px 0px var(--rosa-neon);
 }
 
 .branding-admin {
@@ -84,31 +85,34 @@ body {
     gap: 4px;
 }
 
-/* Botones de Navegación Punk */
+/* Botones Neon Wireframe */
 .btn-top,
 .btn-cerrar-sesion {
     display: inline-block;
-    padding: 8px 20px;
-    background: var(--amarillo-neon);
-    color: #000000;
-    border: 2px solid var(--blanco);
-    border-radius: 0px;
-    font-weight: 900;
-    font-size: 0.85rem;
+    padding: 10px 22px;
+    background: transparent;
+    color: var(--amarillo-neon);
+    border: 1.5px solid var(--amarillo-neon);
+    border-radius: 2px;
+    font-family: 'Share Tech Mono', monospace;
+    font-weight: bold;
+    font-size: 0.9rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
     text-decoration: none;
-    box-shadow: 3px 3px 0px var(--naranja-fuego);
+    box-shadow: var(--glow-amarillo);
     cursor: pointer;
-    transition: all 0.15s ease-in-out;
+    transition: all 0.2s ease;
 }
 
 .btn-top:hover,
 .btn-cerrar-sesion:hover {
-    background: var(--naranja-fuego);
+    background: var(--rosa-neon);
     color: var(--blanco);
-    box-shadow: 2px 2px 0px var(--amarillo-neon);
-    transform: translate(1px, 1px);
+    border-color: var(--rosa-neon);
+    box-shadow: var(--glow-rosa);
+    text-shadow: 0 0 8px #fff;
+    transform: translateY(-2px);
 }
 
 .nav-admin {
@@ -118,28 +122,29 @@ body {
 }
 
 .btn-nav {
-    color: var(--amarillo-neon);
+    color: var(--rojo-neon);
     text-decoration: none;
     font-weight: 800;
     font-size: 0.85rem;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding: 6px 12px;
-    border: 1px dashed var(--naranja-fuego);
+    letter-spacing: 1px;
+    padding: 6px 14px;
+    border: 1px solid var(--rojo-neon);
+    box-shadow: var(--glow-naranja);
     transition: all 0.2s ease;
 }
 
 .btn-nav:hover {
-    background-color: var(--naranja-fuego);
-    color: #000;
+    background-color: var(--rojo-neon);
+    color: var(--fondo-rock);
 }
 
-/*3. LOGIN Y AUTENTICACIÓN*/
+/* 3. LOGIN Y AUTENTICACIÓN */
 body.fondo-negro-login {
     background-color: var(--fondo-rock);
     background-image: 
-        radial-gradient(circle at 50% 30%, rgba(255, 85, 0, 0.15) 0%, transparent 60%),
-        radial-gradient(circle at 80% 80%, rgba(255, 204, 0, 0.08) 0%, transparent 50%);
+        radial-gradient(circle at 50% 30%, rgba(255, 0, 127, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 80% 80%, rgba(255, 51, 0, 0.12) 0%, transparent 50%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -155,9 +160,9 @@ body.fondo-negro-login {
 .tarjeta-login {
     background-color: var(--tarjeta-bg);
     padding: 40px 35px;
-    border: 1px solid rgba(255, 85, 0, 0.3);
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), var(--glow-naranja);
+    border: 1px solid var(--rosa-neon);
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(255, 0, 127, 0.3), inset 0 0 15px rgba(255, 0, 127, 0.1);
 }
 
 .header-login {
@@ -167,26 +172,27 @@ body.fondo-negro-login {
 
 .badge-admin {
     display: inline-block;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: bold;
     color: var(--amarillo-neon);
-    background: rgba(255, 204, 0, 0.1);
-    padding: 4px 12px;
-    border-radius: 20px;
+    background: rgba(255, 204, 0, 0.05);
+    padding: 4px 14px;
+    border-radius: 2px;
     margin-bottom: 12px;
     border: 1px solid var(--amarillo-neon);
     box-shadow: var(--glow-amarillo);
 }
 
 .titulo-naranja {
+    font-family: 'Montserrat', sans-serif;
     color: var(--blanco);
     font-size: 1.6rem;
-    font-weight: 800;
-    letter-spacing: 1px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+    text-shadow: 2px 2px 0px var(--rojo-neon);
 }
 
 .campo {
@@ -198,10 +204,10 @@ body.fondo-negro-login {
     display: block;
     color: var(--texto-suave);
     margin-bottom: 8px;
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
 }
 
 .campo input {
@@ -209,21 +215,22 @@ body.fondo-negro-login {
     padding: 12px 16px;
     background-color: var(--gris-input);
     border: 1px solid var(--borde-input);
-    border-radius: 8px;
+    border-radius: 2px;
     color: var(--blanco);
-    font-size: 0.95rem;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1rem;
     outline: none;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
 }
 
 .campo input::placeholder {
-    color: #556096;
+    color: #4A4A60;
 }
 
 .campo input:focus {
-    border-color: var(--amarillo-neon);
-    box-shadow: var(--glow-amarillo);
-    background-color: #1a1f42;
+    border-color: var(--rosa-neon);
+    box-shadow: var(--glow-rosa);
+    background-color: #181824;
 }
 
 .botones-login {
@@ -234,26 +241,26 @@ body.fondo-negro-login {
 }
 
 .btn-guardar {
-    background: linear-gradient(135deg, var(--naranja-fuego), var(--amarillo-neon));
-    color: #000000;
-    border: none;
+    background: var(--rojo-neon);
+    color: var(--blanco);
+    border: 1px solid var(--amarillo-neon);
     padding: 14px;
-    border-radius: 25px;
-    font-weight: 800;
+    border-radius: 2px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
     font-size: 1rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: var(--glow-naranja);
+    transition: all 0.2s ease;
 }
 
 .btn-guardar:hover {
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 5px 20px rgba(255, 85, 0, 0.6);
-}
-
-.btn-guardar:active {
-    transform: translateY(0);
+    background: var(--rosa-neon);
+    border-color: var(--blanco);
+    box-shadow: var(--glow-rosa);
+    transform: translateY(-2px);
 }
 
 .btn-cancelar {
@@ -267,34 +274,34 @@ body.fondo-negro-login {
 
 .btn-cancelar:hover {
     color: var(--amarillo-neon);
+    text-shadow: var(--glow-amarillo);
 }
 
-/*  4. PANEL ADMIN Y TARJETAS ROCKERAS indexplus.html*/
+/* 4. PANEL ADMIN Y TARJETAS SINTETIZADOR indexplus.html */
 body.fondo-negro-panel {
     min-height: 100vh;
     background-color: var(--fondo-rock);
 }
 
 .contenedor-modulos {
-    max-width: 1200px;
+    max-width: 1400px; 
     margin: 50px auto;
-    padding: 0 20px;
+    padding: 0 25px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
 }
 
 .tarjeta-modulo {
     background-color: var(--tarjeta-bg);
-    border: 1px solid rgba(255, 85, 0, 0.25);
-    border-radius: 14px;
+    border: 1px solid var(--borde-input);
+    border-radius: 4px;
     padding: 28px 24px;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+    transition: all 0.25s ease;
     position: relative;
     overflow: hidden;
 }
@@ -303,17 +310,17 @@ body.fondo-negro-panel {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--naranja-fuego), var(--amarillo-neon));
-    opacity: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--rojo-neon), var(--rosa-neon), var(--amarillo-neon));
+    opacity: 0.5;
     transition: opacity 0.3s ease;
 }
 
 .tarjeta-modulo:hover {
-    transform: translateY(-8px);
+    transform: translateY(-5px);
     background-color: var(--tarjeta-hover);
-    border-color: var(--amarillo-neon);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.8), var(--glow-naranja);
+    border-color: var(--rosa-neon);
+    box-shadow: 0 0 20px rgba(255, 0, 127, 0.4);
 }
 
 .tarjeta-modulo:hover::before {
@@ -327,15 +334,12 @@ body.fondo-negro-panel {
     margin-bottom: 12px;
 }
 
-.modulo-icono {
-    font-size: 1.6rem;
-}
-
 .tarjeta-modulo h2 {
+    font-family: 'Montserrat', sans-serif;
     color: var(--blanco);
-    font-size: 1.3rem;
-    font-weight: 700;
-    letter-spacing: 0.5px;
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: 1px;
 }
 
 .tarjeta-modulo p {
@@ -348,18 +352,19 @@ body.fondo-negro-panel {
 .link-modulo {
     color: var(--amarillo-neon);
     font-size: 0.85rem;
-    font-weight: 800;
+    font-weight: bold;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
     align-self: flex-start;
     transition: color 0.2s ease;
 }
 
 .tarjeta-modulo:hover .link-modulo {
-    color: var(--naranja-fuego);
+    color: var(--rosa-neon);
+    text-shadow: var(--glow-rosa);
 }
 
-/*  5. FORMULARIO DE EVENTOS */
+/* 5. FORMULARIO DE EVENTOS */
 .contenedor-formulario-admin {
     max-width: 650px;
     margin: 40px auto;
@@ -369,19 +374,21 @@ body.fondo-negro-panel {
 .tarjeta-formulario {
     background-color: var(--tarjeta-bg);
     padding: 35px;
-    border-radius: 16px;
-    border: 1px solid rgba(255, 85, 0, 0.3);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), var(--glow-naranja);
+    border-radius: 4px;
+    border: 1px solid var(--rojo-neon);
+    box-shadow: var(--glow-naranja);
 }
 
 .titulo-formulario {
+    font-family: 'Montserrat', sans-serif;
     text-align: center;
     color: var(--amarillo-neon);
     font-size: 1.5rem;
-    font-weight: 800;
+    font-weight: 900;
     text-transform: uppercase;
     margin-bottom: 25px;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 0px var(--rojo-neon);
 }
 
 #formulario-evento {
@@ -406,12 +413,12 @@ body.fondo-negro-panel {
     padding: 12px 16px;
     background-color: var(--gris-input);
     border: 1px solid var(--borde-input);
-    border-radius: 8px;
+    border-radius: 2px;
     color: var(--blanco);
+    font-family: 'Share Tech Mono', monospace;
     font-size: 0.95rem;
     outline: none;
     transition: all 0.3s ease;
-    font-family: inherit;
 }
 
 .campo textarea {
@@ -420,13 +427,12 @@ body.fondo-negro-panel {
 
 .campo select:focus,
 .campo textarea:focus {
-    border-color: var(--amarillo-neon);
-    box-shadow: var(--glow-amarillo);
-    background-color: #1a1f42;
+    border-color: var(--rosa-neon);
+    box-shadow: var(--glow-rosa);
+    background-color: #181824;
 }
 
-/*
-   6. TABLAS Y VENTANAS MODALES */
+/* 6. TABLAS Y VENTANAS MODALES */
 .contenedor-admin-ancho {
     max-width: 1100px;
     margin: 40px auto;
@@ -445,24 +451,24 @@ body.fondo-negro-panel {
 }
 
 .tabla-custom th {
-    background-color: rgba(255, 85, 0, 0.15);
+    background-color: rgba(255, 51, 0, 0.15);
     color: var(--amarillo-neon);
     padding: 14px;
     text-align: left;
     text-transform: uppercase;
-    font-size: 0.8rem;
-    letter-spacing: 0.5px;
-    border-bottom: 2px solid var(--naranja-fuego);
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    border-bottom: 2px solid var(--rojo-neon);
 }
 
 .tabla-custom td {
     padding: 12px 14px;
     border-bottom: 1px solid var(--borde-input);
-    font-size: 0.9rem;
+    font-size: 0.95rem;
 }
 
 .tabla-custom tr:hover {
-    background-color: rgba(255, 255, 255, 0.03);
+    background-color: rgba(255, 0, 127, 0.08);
     cursor: pointer;
 }
 
@@ -474,23 +480,26 @@ body.fondo-negro-panel {
     width: 50px;
     height: 50px;
     object-fit: cover;
-    border-radius: 6px;
-    border: 1px solid var(--naranja-fuego);
+    border-radius: 2px;
+    border: 1px solid var(--rosa-neon);
 }
 
 .btn-borrar {
-    background-color: #ff4444;
-    color: var(--blanco);
-    border: none;
+    background-color: transparent;
+    color: var(--rojo-neon);
+    border: 1px solid var(--rojo-neon);
     padding: 6px 12px;
     cursor: pointer;
-    border-radius: 4px;
-    font-weight: 600;
-    transition: background 0.2s ease;
+    border-radius: 2px;
+    font-family: 'Share Tech Mono', monospace;
+    font-weight: bold;
+    transition: all 0.2s ease;
 }
 
 .btn-borrar:hover {
-    background-color: #cc0000;
+    background-color: var(--rojo-neon);
+    color: var(--blanco);
+    box-shadow: var(--glow-naranja);
 }
 
 .modal-overlay {
@@ -498,8 +507,8 @@ body.fondo-negro-panel {
     position: fixed;
     top: 0; left: 0; 
     width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(5px);
+    background: rgba(5, 5, 8, 0.9);
+    backdrop-filter: blur(8px);
     z-index: 1000;
     justify-content: center;
     align-items: center;
@@ -507,13 +516,13 @@ body.fondo-negro-panel {
 
 .modal-contenido {
     background-color: var(--tarjeta-bg);
-    border: 2px solid var(--naranja-fuego);
-    border-radius: 14px;
+    border: 1.5px solid var(--rosa-neon);
+    border-radius: 4px;
     width: 90%;
     max-width: 550px;
     padding: 30px;
     color: var(--blanco);
-    box-shadow: 0 0 25px rgba(255, 85, 0, 0.3);
+    box-shadow: 0 0 25px rgba(255, 0, 127, 0.4);
     position: relative;
 }
 
@@ -527,15 +536,16 @@ body.fondo-negro-panel {
 }
 
 .cerrar-modal:hover {
-    color: var(--amarillo-neon);
+    color: var(--rosa-neon);
+    text-shadow: var(--glow-rosa);
 }
 
 .detalle-seccion {
-    background: rgba(255, 85, 0, 0.08);
-    border-left: 4px solid var(--naranja-fuego);
+    background: rgba(255, 0, 127, 0.05);
+    border-left: 3px solid var(--rosa-neon);
     padding: 12px 16px;
     margin: 15px 0;
-    border-radius: 6px;
+    border-radius: 2px;
 }
 
 .subtitulo-campo {
@@ -573,43 +583,31 @@ body.fondo-negro-panel {
 .monto-destacado {
     color: var(--amarillo-neon);
     font-weight: 800;
+    text-shadow: var(--glow-amarillo);
 }
 
-/* CONTROL DE TAMAÑO DE IMÁGENES EN TARJETAS */
-
-/* Asegura que la tarjeta controle el flujo */
+/* CONTROL DE TAMAÑO DE IMÁGENES Y BORDES EL-WIRE */
 .grid-eventos .tarjeta-modulo,
 .contenedor-destacados .tarjeta-modulo,
-.card-evento {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.card-concierto {
+    background-color: var(--tarjeta-bg);
+    border: 1px solid var(--borde-input);
+    border-radius: 4px;
     overflow: hidden;
+    transition: all 0.25s ease;
 }
 
-/* Control estricto de la imagen del evento */
+.card-concierto:hover {
+    border-color: var(--rojo-neon);
+    box-shadow: 0 0 15px rgba(255, 51, 0, 0.5);
+    transform: translateY(-4px);
+}
+
 .grid-eventos img,
 .contenedor-destacados img,
-.card-evento img {
-    width: 100%;
-    height: 200px; /* Altura fija uniforme para todas las imágenes */
-    object-fit: cover; /* Recorta proporcionalmente sin deformar la foto */
-    border-radius: 8px;
-    border: 1px solid var(--borde-input);
-    margin-bottom: 12px;
-}
-
-/* En caso de que la imagen venga envuelta en una figura o contenedor */
-.contenedor-imagen-card {
+.card-concierto img {
     width: 100%;
     height: 200px;
-    overflow: hidden;
-    border-radius: 8px;
-    margin-bottom: 12px;
-}
-
-.contenedor-imagen-card img {
-    width: 100%;
-    height: 100%;
     object-fit: cover;
+    border-bottom: 1px solid var(--borde-input);
 }

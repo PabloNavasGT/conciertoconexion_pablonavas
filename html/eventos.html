@@ -72,7 +72,94 @@
                     <label for="evento-descripcion">Descripción:</label>
                     <textarea id="evento-descripcion" rows="3" placeholder="Detalles..."></textarea>
                 </div>
+                <!-- SECCIÓN DE LUGAR Y RECINTO -->
+<div class="campo">
+    <label for="tipo-recinto">Tipo de Recinto / Lugar</label>
+    <select id="tipo-recinto" required style="width: 100%; padding: 12px; background: var(--gris-input); color: var(--blanco); border: 1px solid var(--borde-input); border-radius: 2px;">
+        <option value="">Selecciona el tipo de lugar</option>
+        <option value="estadio-gradas">Estadio  (solo gradas)</option>
+        <option value="estadio-pista">Estadio (Pista, Tribunas y VIP)</option>
+        <option value="teatro">Teatro</option>
+        <option value="alternativo">Lugar Alternativo</option>
+    </select>
+</div>
 
+<div class="campo">
+    <label for="nombre-recinto">Nombre del Lugar / Estadio / Teatro</label>
+    <input type="text" id="nombre-recinto" placeholder="Ej. Estadio Doroteo Guamuch Flores" required>
+</div>
+
+<div class="campo">
+    <label for="direccion-recinto">Dirección</label>
+    <input type="text" id="direccion-recinto" placeholder="Ciudad, Zona, Dirección exacta" required>
+</div>
+
+<div class="campo">
+    <label>
+        <input type="checkbox" id="recinto-disponible" checked> ¿Está disponible para la venta?
+    </label>
+</div>
+
+<!-- ================= OCURRENCIAS CONDICIONALES SEGÚN EL TIPO ================= -->
+
+<!-- 1. ESTADIO (GRADAS) -->
+<div id="seccion-estadio-gradas" class="seccion-recinto" style="display:none; border: 1px dashed var(--rojo-neon); padding: 15px; margin-bottom: 20px; border-radius: 4px;">
+    <h3 style="color: var(--amarillo-neon); margin-bottom: 10px; font-size: 1.1rem;">Precios por Zonas de Gradas</h3>
+    
+    <div class="campo"><label>Grada Inferior (Precio Q):</label><input type="number" id="precio-grada-inf" placeholder="0.00"></div>
+    <div class="campo"><label>Grada Intermedia / VIP (Precio Q):</label><input type="number" id="precio-grada-vip" placeholder="0.00"></div>
+    <div class="campo"><label>Grada Superior (Precio Q):</label><input type="number" id="precio-grada-sup" placeholder="0.00"></div>
+    
+    <h4 style="color: var(--rosa-neon); margin: 10px 0; font-size: 0.95rem;">Cargos adicionales por tipo de Visión:</h4>
+    <div class="campo"><label>Visión Frontal (Extra Q):</label><input type="number" id="vision-frontal-gradas" placeholder="0.00"></div>
+    <div class="campo"><label>Visión Lateral (Derecha/Izquierda) (Extra Q):</label><input type="number" id="vision-lateral-gradas" placeholder="0.00"></div>
+    <div class="campo"><label>Visión Obstruida o Limitada (Descuento/Extra Q):</label><input type="number" id="vision-obstruida-gradas" placeholder="0.00"></div>
+</div>
+
+<!-- 2. ESTADIO (PISTA, TRIBUNAS Y VIP) -->
+<div id="seccion-estadio-pista" class="seccion-recinto" style="display:none; border: 1px dashed var(--rojo-neon); padding: 15px; margin-bottom: 20px; border-radius: 4px;">
+    <h3 style="color: var(--amarillo-neon); margin-bottom: 10px; font-size: 1.1rem;">Precios de Pista, Tribunas y Zonas VIP</h3>
+    
+    <div class="campo"><label>Zona de Pista o Cancha (Precio Q):</label><input type="number" id="precio-pista" placeholder="0.00"></div>
+    <div class="campo"><label>Tribunas (Precio Q):</label><input type="number" id="precio-tribunas" placeholder="0.00"></div>
+    <div class="campo"><label>Zonas VIP (Precio Q):</label><input type="number" id="precio-vip" placeholder="0.00"></div>
+    
+    <h4 style="color: var(--rosa-neon); margin: 10px 0; font-size: 0.95rem;">Cargos adicionales por tipo de Visión:</h4>
+    <div class="campo"><label>Visión Frontal (Extra Q):</label><input type="number" id="vision-frontal-pista" placeholder="0.00"></div>
+    <div class="campo"><label>Visión Lateral (Derecha/Izquierda) (Extra Q):</label><input type="number" id="vision-lateral-pista" placeholder="0.00"></div>
+    <div class="campo"><label>Visión Obstruida o Limitada (Descuento/Extra Q):</label><input type="number" id="vision-obstruida-pista" placeholder="0.00"></div>
+</div>
+
+<!-- 3. TEATRO -->
+<div id="seccion-teatro" class="seccion-recinto" style="display:none; border: 1px dashed var(--rojo-neon); padding: 15px; margin-bottom: 20px; border-radius: 4px;">
+    <h3 style="color: var(--amarillo-neon); margin-bottom: 10px; font-size: 1.1rem;">Zonas y Secciones de Teatro</h3>
+    
+    <div class="campo"><label>Butacas (Precio Q):</label><input type="number" id="precio-butacas" placeholder="0.00"></div>
+    <div class="campo"><label>Palcos (Precio Q):</label><input type="number" id="precio-palcos" placeholder="0.00"></div>
+    <div class="campo"><label>Entresuelo o Anfiteatro (Precio Q):</label><input type="number" id="precio-anfiteatro" placeholder="0.00"></div>
+    <div class="campo"><label>Balcón Primer Piso (Precio Q):</label><input type="number" id="precio-balcon-1" placeholder="0.00"></div>
+    <div class="campo"><label>Balcón Segundo Piso (Precio Q):</label><input type="number" id="precio-balcon-2" placeholder="0.00"></div>
+    <div class="campo"><label>Balcón Tercer Piso (Precio Q):</label><input type="number" id="precio-balcon-3" placeholder="0.00"></div>
+    <div class="campo"><label>Galería, Paraíso o Cazuela (Precio Q):</label><input type="number" id="precio-galeria" placeholder="0.00"></div>
+
+    <h4 style="color: var(--rosa-neon); margin: 10px 0; font-size: 0.95rem;">Cargos adicionales por tipo de Visión:</h4>
+    <div class="campo"><label>Visión Frontal (Extra Q):</label><input type="number" id="vision-frontal-teatro" placeholder="0.00"></div>
+    <div class="campo"><label>Visión Lateral (Derecha/Izquierda) (Extra Q):</label><input type="number" id="vision-lateral-teatro" placeholder="0.00"></div>
+    <div class="campo"><label>Visión Obstruida o Limitada (Descuento/Extra Q):</label><input type="number" id="vision-obstruida-teatro" placeholder="0.00"></div>
+</div>
+
+<!-- 4. LUGAR ALTERNATIVO -->
+<div id="seccion-alternativo" class="seccion-recinto" style="display:none; border: 1px dashed var(--rojo-neon); padding: 15px; margin-bottom: 20px; border-radius: 4px;">
+    <h3 style="color: var(--amarillo-neon); margin-bottom: 10px; font-size: 1.1rem;">Lugar Alternativo</h3>
+    <div class="campo">
+        <label for="nombre-lugar-alternativo">Pon aquí el nombre del lugar:</label>
+        <input type="text" id="nombre-lugar-alternativo" placeholder="Ej. Parque Central, Autocinema, etc.">
+    </div>
+    <div class="campo">
+        <label for="precio-alternativo">Precio General / Entrada (Precio Q):</label>
+        <input type="number" id="precio-alternativo" placeholder="0.00">
+    </div>
+</div>
                 <button type="submit" id="btn-guardar-evento" class="btn-guardar">
                     GUARDAR CONCIERTO
                 </button>

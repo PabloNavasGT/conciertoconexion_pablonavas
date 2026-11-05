@@ -9,11 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (contenedorItems) {
         renderizarListaCarrito();
 
-        // Escuchador único para los botones de eliminar
+        // Escuchador para los botones de eliminar agrupados
         contenedorItems.addEventListener('click', (e) => {
             if (e.target.classList.contains('btn-eliminar')) {
-                const index = e.target.getAttribute('data-index');
-                quitarDelCarrito(index);
+                const nombreItem = e.target.getAttribute('data-nombre');
+                quitarGrupoDelCarrito(nombreItem);
             }
         });
     }
@@ -32,27 +32,47 @@ function actualizarTotalInterfaz() {
 function renderizarListaCarrito() {
     const lista = DB.get(CARRITO_KEY);
     const contenedor = document.getElementById('contenedor-items');
-  if (!contenedor) return;
+    if (!contenedor) return;
+
     if (lista.length === 0) {
         contenedor.innerHTML = '<p class="mensaje-vacio">Tu carrito está vacío.</p>';
         return;
     }
 
-    const htmlItems = lista.map((item, index) => `
-        <div class="item-carrito">
-            <div>
-                <strong class="texto-naranja">${item.nombre}</strong><br>
-                <small>Q${parseFloat(item.precio || 0).toFixed(2)}</small>
+    // Agrupar elementos por nombre y calcular subtotales y cantidades
+    const agrupados = {};
+    lista.forEach(item => {
+        const nombre = item.nombre || 'Entrada';
+        const precio = parseFloat(item.precio || 0);
+        if (!agrupados[nombre]) {
+            agrupados[nombre] = { cantidad: 0, precioUnitario: precio };
+        }
+        agrupados[nombre].cantidad += 1;
+    });
+
+    // Generar el HTML limpio con los elementos agrupados
+    const htmlItems = Object.entries(agrupados).map(([nombre, info]) => {
+        const subtotal = info.precioUnitario * info.cantidad;
+        return `
+            <div class="item-carrito">
+                <div>
+                    <strong class="texto-naranja">${nombre}</strong> ${info.cantidad > 1 ? `<span style="color: var(--amarillo-neon); font-size: 0.85rem;">(x${info.cantidad})</span>` : ''}<br>
+                    <small>Subtotal: Q${subtotal.toFixed(2)} (Q${info.precioUnitario.toFixed(2)} c/u)</small>
+                </div>
+                <button class="btn-eliminar btn-quitar" data-nombre="${nombre}">Eliminar todos</button>
             </div>
-            <button class="btn-eliminar" data-index="${index}">Eliminar</button>
-        </div>
-    `).join('');
+        `;
+    }).join('');
 
     contenedor.innerHTML = htmlItems;
 }
 
-function quitarDelCarrito(index) {
-    DB.deleteItem(CARRITO_KEY, index); 
+function quitarGrupoDelCarrito(nombreItem) {
+    let lista = DB.get(CARRITO_KEY);
+    // Filtrar la lista para eliminar todas las instancias de ese concierto
+    lista = lista.filter(item => item.nombre !== nombreItem);
+    DB.set(CARRITO_KEY, lista);
+    
     renderizarListaCarrito();
     actualizarTotalInterfaz();
 }
@@ -90,17 +110,7 @@ window.finalizarCompra = () => {
         return;
     }
 
-    const conciertosGlobales = DB.get(CONCIERTOS_KEY);
-
- carrito.forEach(itemCarrito => {
-        const idx = conciertosGlobales.findIndex(c => c.nombre === itemCarrito.nombre);
-        if (idx !== -1) {
-            conciertosGlobales[idx].vendidos = (conciertosGlobales[idx].vendidos || 0) + 1;
-        }
-    });
-    
-    DB.set(CONCIERTOS_KEY, conciertosGlobales);
-
+    // Nota: Si usas MongoDB para los conciertos en el admin, puedes dejar esta sección adaptada o mantener tu lógica actual de historial
     const historialVentas = DB.get(VENTAS_KEY);
     
     const nuevaVenta = {
@@ -116,6 +126,6 @@ window.finalizarCompra = () => {
     
     DB.set(CARRITO_KEY, []); 
 
- alert(`¡Compra realizada con éxito!\nGracias por tu compra :D, ${datosCliente.nombre}.`);
+    alert(`¡Compra realizada con éxito!\nGracias por tu compra :D, ${datosCliente.nombre}.`);
     window.location.href = "../html/Qr.html"; 
 };

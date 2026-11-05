@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Historial de Compras</title>
+    <title>Historial de Compras por Concierto</title>
     <link rel="stylesheet" href="../css/base.css">
 </head>
 <body>
 
     <header class="header-admin">
         <div class="header-contenido">
-            <h1 class="titulo-panel">Historial de Ventas</h1>
+            <h1 class="titulo-panel">Historial de Ventas por Concierto</h1>
             <nav class="nav-admin">
                 <a href="indexplus.html" class="btn-nav">Volver al Panel</a>
                 <a href="../index.html" class="btn-nav">Vista Pública</a>
@@ -18,28 +18,11 @@
         </div>
     </header>
 
-    <main class="contenedor-admin-ancho">
-        <div class="tarjeta-admin-seccion">
-            <h2 class="subtitulo-seccion">Registro de Ventas Realizadas</h2>
-
-            <div class="tabla-responsive">
-                <table class="tabla-custom">
-                    <thead>
-                        <tr>
-                            <th>Fecha</th>
-                            <th>Referencia</th>
-                            <th>Cliente</th>
-                            <th>Productos</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabla-ventas"></tbody>
-                </table>
-            </div>
-        </div>
+    <main class="contenedor-admin-ancho" id="contenedor-secciones-conciertos" style="max-width: 1400px; margin: 40px auto; padding: 0 25px; display: flex; flex-direction: column; gap: 35px;">
+        <!-- Aquí se generarán dinámicamente las secciones independientes por cada concierto -->
     </main>
 
-    <!-- Modal para ver detalle completo -->
+    <!-- Modal para ver detalle completo de la compra -->
     <div id="modal-detalle-compra" class="modal-overlay">
         <div class="modal-contenido">
             <span class="cerrar-modal" id="btn-cerrar-modal">&times;</span>

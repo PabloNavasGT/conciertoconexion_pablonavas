@@ -1,4 +1,13 @@
+// Verificar si el usuario está autenticado al cargar el index principal
 document.addEventListener('DOMContentLoaded', () => {
+    const usuarioLogueado = localStorage.getItem('usuarioActivo');
+    if (!usuarioLogueado) {
+        alert("Acceso restringido. Debes iniciar sesión para ver la cartelera.");
+        window.location.href = 'html/seguritas.html';
+    }
+});
+
+document.addEventListener('DOMContentLoaded', async () => {
     const contenedor = document.getElementById('grid-eventos');
     if (!contenedor) return;
 
@@ -7,12 +16,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const filtroCiudad = document.getElementById('filtro-ciudad');
     const filtroCategoria = document.getElementById('filtro-categoria'); 
 
-    // Obtener datos centralizados desde localStorage mediante la helper DB
-    const conciertosOriginales = DB.get('misConciertosData'); 
+    const API_URL = 'http://localhost:3000/api/concerts';
+    let conciertosOriginales = [];
     const categoriasGuardadas = DB.get('misCategoriasData');
     const ciudadesGuardadas = DB.get('misCiudadesData');
 
-    // Carga dinámicamente el select de Categorías de Música
+    // Cargar conciertos desde MongoDB
+    try {
+        const res = await fetch(API_URL);
+        conciertosOriginales = await res.json();
+    } catch (error) {
+        console.error("Error al cargar los conciertos de la API:", error);
+        contenedor.innerHTML = `<h2 class="mensaje-vacio">No se pudo conectar con el servidor backend.</h2>`;
+        return;
+    }
+
     function cargarCategoriasDinamicas() {
         if (!filtroCategoria) return;
         const opcionesHTML = categoriasGuardadas
@@ -21,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
         filtroCategoria.innerHTML = '<option value="">Todas las categorías</option>' + opcionesHTML;
     }
 
-    // Carga dinámicamente el select de Ubicaciones / Ciudades
     function cargarCiudadesDinamicas() {
         if (!filtroCiudad) return;
         const opcionesHTML = ciudadesGuardadas
@@ -32,13 +49,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderizar(lista) {
         if (lista.length === 0) {
-            contenedor.innerHTML = `<h2 class="mensaje-vacio">No hay coincidencias en esta zona, Knight 🔍</h2>`;
+            contenedor.innerHTML = `<h2 class="mensaje-vacio">No hay conciertos disponibles por el momento, Knight 🔍</h2>`;
             return;
         }
 
         const htmlTarjetas = lista.map((evento) => {
-            const indiceReal = conciertosOriginales.indexOf(evento);
-            const urlDetalle = `html/detalle.html?id=${indiceReal}`;
+            const urlDetalle = `html/detalle.html?id=${evento._id}`;
  
             const vendidos = evento.vendidos || 0;
             const aforo = evento.aforo || 0;
@@ -70,7 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
         contenedor.innerHTML = htmlTarjetas;
     }
 
-    // Delegación de eventos para la navegación
     contenedor.addEventListener('click', (e) => {
         const elementoConUrl = e.target.closest('[data-url]');
         if (elementoConUrl && !elementoConUrl.hasAttribute('disabled')) {
@@ -79,7 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Lógica de filtrado combinado (Texto + Ubicación + Categoría)
     const ejecutarFiltros = () => {
         const termino = inputBusqueda?.value.toLowerCase().trim() || '';
         const ciudadSel = filtroCiudad?.value || '';
@@ -108,7 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Inicialización dinámica
     cargarCategoriasDinamicas(); 
     cargarCiudadesDinamicas();
     renderizar(conciertosOriginales);

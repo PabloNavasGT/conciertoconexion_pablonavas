@@ -3,55 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pago</title>
+    <title>Pasarela de Pago | Conciertos Conectados</title>
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/carrito.css">
 </head>
 <body class="fondo-negro-login">
 
-    <main class="contenedor-carrito">
+    <main class="contenedor-carrito" style="max-width: 600px;">
         <div class="tarjeta-carrito">
-            <h2 class="titulo-carrito">Finalizar Compra</h2>
-            <p style="text-align: center; color: var(--texto-suave); margin-bottom: 20px; font-size: 0.9rem;">Completa tus datos para recibir tus boletas.</p>
-            
-            <div class="total-box" style="text-align: center; margin-bottom: 25px;">
-                <span style="font-size: 0.9rem; color: var(--texto-suave); display: block;">Total a pagar:</span>
-                Q<span id="suma-total">0</span>
-            </div>
+            <h2 class="titulo-carrito">Pasarela de Pago</h2>
 
-            <form id="formulario-checkout" onsubmit="event.preventDefault();">
+            <form id="form-pago">
                 <div class="campo">
-                    <label for="cli-id">Número de Identificación</label>
-                    <input type="text" id="cli-id" placeholder="DPI o Pasaporte">
-                </div>
-                
-                <div class="campo">
-                    <label for="cli-nombre">Nombre Completo</label>
-                    <input type="text" id="cli-nombre" placeholder="Nombre como aparece en tu ID">
-                </div>
-                
-                <div class="campo">
-                    <label for="cli-direccion">Dirección de domicilio</label>
-                    <input type="text" id="cli-direccion" placeholder="Calle, ciudad y país">
-                </div>
-                
-                <div class="campo">
-                    <label for="cli-telefono">Teléfono</label>
-                    <input type="tel" id="cli-telefono" placeholder="Ej: +502 1234 5678">
-                </div>
-                
-                <div class="campo">
-                    <label for="cli-correo">Correo Electrónico</label>
-                    <input type="email" id="cli-correo" placeholder="ejemplo@correo.com">
+                    <label for="tipo-tarjeta">Tipo de Tarjeta</label>
+                    <select id="tipo-tarjeta" required style="width: 100%; padding: 12px; background: var(--gris-input); color: var(--blanco); border: 1px solid var(--borde-input); border-radius: 2px;">
+                        <option value="Tarjeta de Crédito">Tarjeta de Crédito</option>
+                        <option value="Tarjeta de Débito">Tarjeta de Débito</option>
+                    </select>
                 </div>
 
-                <div style="display: flex; align-items: center; gap: 10px; margin: 20px 0;">
-                    <input type="checkbox" id="check-edad" style="width: 18px; height: 18px; accent-color: var(--naranja-fuego); cursor: pointer;">
-                    <label for="check-edad" style="color: var(--texto-suave); font-size: 0.88rem; cursor: pointer; margin: 0;">Confirmo que soy mayor de 18 años</label>
+                <div class="campo">
+                    <label for="num-tarjeta">Número de Tarjeta (8 Dígitos)</label>
+                    <input type="text" id="num-tarjeta" placeholder="12345678" minlength="8" maxlength="8" required>
                 </div>
 
-                <button type="button" class="btn-guardar" id="btn-finalizar-compra" onclick="finalizarCompra()" style="width: 100%;">
-                    CONFIRMAR Y PAGAR
+                <div class="campo">
+                    <label for="nombre-tarjeta">Nombre del Titular</label>
+                    <input type="text" id="nombre-tarjeta" placeholder="Tu nombre" required>
+                </div>
+
+                <div class="campo">
+                    <label for="exp-tarjeta">Fecha de Expiración</label>
+                    <input type="text" id="exp-tarjeta" placeholder="MM/AA o MM(AA)" maxlength="5" required>
+                </div>
+
+                <div class="campo">
+                    <label for="cvv-tarjeta">CVV (3 Dígitos)</label>
+                    <input type="password" id="cvv-tarjeta" placeholder="..." maxlength="3" required>
+                </div>
+
+                <div class="campo">
+                    <label for="correo-pago">Correo Electrónico</label>
+                    <input type="email" id="correo-pago" placeholder="correo@example.com" required>
+                </div>
+
+                <button type="submit" class="btn-pagar" style="margin-top: 20px;">
+                    Cobrar
                 </button>
             </form>
 
@@ -60,6 +57,6 @@
     </main>
 
     <script src="../js/import.js"></script>
-    <script src="../js/carrito.js"></script>
+    <script src="../js/pago.js"></script>
 </body>
 </html>

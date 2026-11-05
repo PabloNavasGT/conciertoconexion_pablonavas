@@ -9,17 +9,16 @@
 </head>
 <body>
 
-    <header class="header-admin">
+   <header class="header-admin">
     <div class="header-contenido">
         <div class="branding-admin">
             <h1 class="titulo-panel">Conciertos conexion</h1>
         </div>
-        <div class="nav-actions">
-            <a href="html/seguritas.html" class="btn-cerrar-sesion" >Cuenta de Admin</a>
+        <div class="nav-actions" id="nav-actions-container">
+            <a href="html/seguritas.html" class="btn-cerrar-sesion">Cuenta</a>
         </div>
-    </nav>
+    </div>
 </header>
-
     <section class="seccion-busqueda">
         <div class="busqueda-wrapper">
             <div class="search-row">
@@ -41,9 +40,28 @@
         </div>
     </main>
 
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const navContainer = document.getElementById('nav-actions-container');
+        const usuarioActivo = JSON.parse(localStorage.getItem('usuarioActivo'));
+
+        if (usuarioActivo) {
+            navContainer.innerHTML = `
+                <span style="color: var(--amarillo-neon); margin-right: 15px; font-weight: bold;">Hola, ${usuarioActivo.nombre}</span>
+                ${usuarioActivo.rol === 'admin' ? '<a href="html/indexplus.html" class="btn-cerrar-sesion" style="margin-right: 10px; background-color: var(--naranja-principal);">Panel Admin</a>' : ''}
+                <button id="btn-logout" class="btn-cerrar-sesion" style="cursor: pointer; background: #C84B31; border: none; padding: 8px 15px; border-radius: 5px; color: white;">Cerrar Sesión</button>
+            `;
+
+            document.getElementById('btn-logout').addEventListener('click', () => {
+                localStorage.removeItem('usuarioActivo');
+                localStorage.removeItem('rol');
+                alert('Has cerrado sesión correctamente.');
+                window.location.reload();
+            });
+        }
+    });
+</script>
+
     <script src="js/import.js"></script>
-    <script src="js/indexdisplay.js"></script>
-    <script src="js/componentes.js"></script>
-    <script src="js/matematicashijo.js"></script>
-</body>
+<script src="js/indexdisplay.js"></script>
 </html>

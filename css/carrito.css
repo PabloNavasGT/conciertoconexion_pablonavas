@@ -1,77 +1,6 @@
-
-.contenedor-categorias,
-.contenedor-ciudades {
-    max-width: 1100px;
-    margin: 40px auto;
-    padding: 0 20px;
-    display: flex;
-    gap: 30px;
-}
-
-.tarjeta-admin-seccion {
-    background-color: var(--tarjeta-bg);
-    padding: 28px;
-    border-radius: 14px;
-    border: 1px solid rgba(255, 85, 0, 0.25);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
-}
-
-.form-cat {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.lista-cat {
-    flex: 2;
-}
-
-.subtitulo-seccion {
-    color: var(--amarillo-neon);
-    font-size: 1.25rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    letter-spacing: 0.5px;
-}
-
-.lista-custom {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-/* Estilo para los ítems inyectados por JavaScript en el listado */
-.lista-custom li {
-    background-color: var(--gris-input);
-    border: 1px solid var(--borde-input);
-    padding: 12px 16px;
-    border-radius: 8px;
-    color: var(--blanco);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: 600;
-    transition: border-color 0.2s ease;
-}
-
-.lista-custom li:hover {
-    border-color: var(--naranja-fuego);
-}
-
-@media (max-width: 768px) {
-    .contenedor-categorias,
-    .contenedor-ciudades {
-        flex-direction: column;
-    }
-}
-
 .contenedor-carrito {
     width: 100%;
-    max-width: 600px;
+    max-width: 650px;
     margin: 40px auto;
     padding: 0 20px;
 }
@@ -79,46 +8,50 @@
 .tarjeta-carrito {
     background-color: var(--tarjeta-bg);
     padding: 35px 30px;
-    border-radius: 16px;
-    border: 1px solid rgba(255, 85, 0, 0.3);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), var(--glow-naranja);
+    border-radius: 4px;
+    border: 1px solid var(--rosa-neon);
+    box-shadow: 0 0 20px rgba(255, 0, 127, 0.3);
 }
 
 .titulo-carrito {
+    font-family: 'Montserrat', sans-serif;
     color: var(--amarillo-neon);
     font-size: 1.6rem;
-    font-weight: 800;
+    font-weight: 900;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
     text-align: center;
+    text-shadow: 2px 2px 0px var(--rojo-neon);
 }
 
 .item-carrito {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 10px;
+    padding: 14px 10px;
     border-bottom: 1px solid var(--borde-input);
     color: var(--blanco);
     font-size: 0.95rem;
 }
 
 .btn-quitar {
-    background-color: #ff3344;
-    color: var(--blanco);
-    border: none;
-    padding: 6px 12px;
+    background-color: transparent;
+    color: var(--rojo-neon);
+    border: 1px solid var(--rojo-neon);
+    padding: 6px 14px;
     cursor: pointer;
-    border-radius: 6px;
-    font-weight: 700;
-    font-size: 0.8rem;
+    border-radius: 2px;
+    font-family: 'Share Tech Mono', monospace;
+    font-weight: bold;
+    font-size: 0.85rem;
     transition: all 0.2s ease;
 }
 
 .btn-quitar:hover {
-    background-color: #ff001a;
-    box-shadow: 0 0 10px rgba(255, 0, 26, 0.5);
+    background-color: var(--rojo-neon);
+    color: var(--blanco);
+    box-shadow: var(--glow-naranja);
 }
 
 .total-box {
@@ -126,36 +59,33 @@
     margin-top: 25px;
     color: var(--amarillo-neon);
     font-size: 1.5rem;
-    font-weight: 800;
-    letter-spacing: 0.5px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-shadow: var(--glow-amarillo);
 }
 
-/* Botón de pago en Verde Neón */
 .btn-pagar {
-    background: linear-gradient(135deg, #00ff66, #00cc44);
-    color: #000000;
+    background: var(--rosa-neon);
+    color: var(--blanco);
     width: 100%;
-    padding: 15px;
-    border: none;
-    border-radius: 25px;
-    font-weight: 800;
+    padding: 16px;
+    border: 1px solid var(--amarillo-neon);
+    border-radius: 2px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
     font-size: 1.1rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     margin-top: 20px;
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 0 15px rgba(0, 255, 102, 0.4);
+    transition: all 0.2s ease;
+    box-shadow: var(--glow-rosa);
 }
 
 .btn-pagar:hover {
-    transform: translateY(-2px) scale(1.01);
-    box-shadow: 0 5px 25px rgba(0, 255, 102, 0.7);
-    background: linear-gradient(135deg, #33ff88, #00ff66);
-}
-
-.btn-pagar:active {
-    transform: translateY(0);
+    background: var(--rojo-neon);
+    box-shadow: var(--glow-naranja);
+    transform: translateY(-2px);
 }
 
 .link-volver {
@@ -165,11 +95,9 @@
     margin-top: 20px;
     text-decoration: none;
     font-size: 0.9rem;
-    font-weight: 600;
-    transition: color 0.3s ease;
 }
 
 .link-volver:hover {
     color: var(--amarillo-neon);
+    text-shadow: var(--glow-amarillo);
 }
-
