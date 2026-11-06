@@ -1,75 +1,105 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    const params = new URLSearchParams(window.location.search);
-    const idEvento = params.get('id');
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
 
-    if (!idEvento) {
-        console.error("No se encontró el ID del evento en la URL.");
-        alert("Error: ID de evento no especificado.");
-        window.location.href = '../index.html';
+    const API_URL = 'http://localhost:3000/api/concerts';
+    const CARRITO_KEY = 'carritoTemporal';
+
+    if (!id) {
+        alert("Evento no válido.");
+        window.location.href = "../index.html";
         return;
     }
 
     try {
-        const res = await fetch('http://localhost:3000/api/concerts');
-        if (!res.ok) throw new Error("No se pudo conectar con el servidor.");
+        const res = await fetch(`${API_URL}/${id}`);
+        if (!res.ok) throw new Error("Evento no encontrado");
         
-        const conciertos = await res.json();
-        const evento = conciertos.find(c => c._id === idEvento);
+        const evento = await res.json();
 
-        if (evento) {
-            const elNombre = document.getElementById('det-nombre');
-            const elCategoria = document.getElementById('det-categoria');
-            const elPrecio = document.getElementById('det-precio');
-            const elHora = document.getElementById('det-hora');
-            const elImagen = document.getElementById('det-imagen');
-            const elDescripcion = document.getElementById('det-descripcion');
-            const elUbicacion = document.getElementById('det-ubicacion');
+        document.getElementById('det-nombre').innerText = evento.nombre || 'Concierto';
+        document.getElementById('det-categoria').innerText = `${evento.categoria || 'General'} | 📍 ${evento.ciudad || 'Guatemala'}`;
+        document.getElementById('det-hora').innerText = evento.hora || 'Por confirmar';
+        
+        let precioBase = parseFloat(evento.precio || 0);
+        document.getElementById('det-precio').innerText = `Q${precioBase.toFixed(2)}`;
+        document.getElementById('det-descripcion').innerText = evento.descripcion || 'Sin descripción disponible.';
+        if (evento.imagen) document.getElementById('det-imagen').src = evento.imagen;
 
-            if (elNombre) elNombre.textContent = evento.nombre;
-            if (elCategoria) elCategoria.textContent = evento.categoria || 'General';
-            if (elPrecio) elPrecio.textContent = `Q${evento.precio || 0}`;
-            if (elHora) elHora.textContent = evento.hora || 'Por confirmar';
-            if (elImagen) elImagen.src = evento.imagen || 'https://via.placeholder.com/400';
-            if (elDescripcion) elDescripcion.textContent = evento.descripcion || 'Sin descripción disponible.';
-            if (elUbicacion) elUbicacion.textContent = `Ubicación: ${evento.ciudad || 'Capital / Por definir'}`;
+        // Renderizar Ubicación y Opciones de Cargos Extras del Recinto
+        const ubicacionElem = document.getElementById('det-ubicacion');
+        const recintoInfo = document.getElementById('det-recinto-info');
+        
+        let extraSeleccionado = 0;
+        let nombreZonaSeleccionada = "Entrada General";
 
-            // Configurar el botón para agregar al carrito
-            const btnComprar = document.getElementById('btn-comprar-det');
-            const inputCantidad = document.getElementById('cantidad-boletos');
+        if (evento.recinto) {
+            const r = evento.recinto;
+            ubicacionElem.innerText = `Ubicación: ${r.nombreLugar || evento.ciudad} (${r.direccion || 'Sin dirección'})`;
+            
+            let htmlRecinto = `<p><strong>Tipo de Recinto:</strong> ${r.tipo.toUpperCase()}</p>`;
+            
+            if (r.cargosExtrasZonas && Object.keys(r.cargosExtrasZonas).length > 0) {
+                htmlRecinto += `
+                    <div class="campo" style="margin-top: 15px;">
+                        <label for="select-zona-recinto" style="color: var(--amarillo-neon);">Elige tu Zona (Cargo extra opcional):</label>
+                        <select id="select-zona-recinto" style="width: 100%; padding: 10px; background: var(--gris-input); color: var(--blanco); border: 1px solid var(--borde-input); border-radius: 2px;">
+                            <option value="0|Entrada General">Entrada Estándar (Sin cargo extra)</option>
+                `;
 
-            if (btnComprar) {
-                btnComprar.onclick = () => {
-                    const cantidad = inputCantidad ? parseInt(inputCantidad.value) || 1 : 1;
-                    agregarAlCarrito(evento, cantidad);
-                };
+                for (const [zona, cargoExtra] of Object.entries(r.cargosExtrasZonas)) {
+                    if (cargoExtra >= 0) {
+                        htmlRecinto += `<option value="${cargoExtra}|${zona}">${zona.toUpperCase()} (+Q${cargoExtra.toFixed(2)})</option>`;
+                    }
+                }
+
+                htmlRecinto += `</select></div>`;
             }
+            recintoInfo.innerHTML = htmlRecinto;
+
+            // Escuchar cambios en la zona seleccionada para actualizar el precio en tiempo real
+            setTimeout(() => {
+                const selectZona = document.getElementById('select-zona-recinto');
+                if (selectZona) {
+                    selectZona.addEventListener('change', (e) => {
+                        const partes = e.target.value.split('|');
+                        extraSeleccionado = parseFloat(partes[0]) || 0;
+                        nombreZonaSeleccionada = partes[1];
+
+                        const precioFinalTotal = precioBase + extraSeleccionado;
+                        document.getElementById('det-precio').innerText = `Q${precioFinalTotal.toFixed(2)}`;
+                    });
+                }
+            }, 100);
+
         } else {
-            alert("El concierto no existe en la base de datos de MongoDB.");
-            window.location.href = '../index.html';
-        }
-    } catch (error) {
-        console.error("Error al cargar el detalle:", error);
-        alert("Error al conectar con el servidor backend.");
-    }
-
-    function agregarAlCarrito(concierto, cantidad) {
-        const CARRITO_KEY = 'carritoTemporal';
-        let carrito = DB.get(CARRITO_KEY);
-
-        // Añadir los ítems repetidos según la cantidad seleccionada
-        for (let i = 0; i < cantidad; i++) {
-            carrito.push({
-                idMongo: concierto._id,
-                nombre: concierto.nombre,
-                precio: concierto.precio || 0
-            });
+            ubicacionElem.innerText = `Ubicación: ${evento.ciudad || 'Guatemala'}`;
+            recintoInfo.innerHTML = '';
         }
 
-        DB.set(CARRITO_KEY, carrito);
+        // Botón para añadir al carrito con el recargo aplicado
+        document.getElementById('btn-comprar-det').addEventListener('click', () => {
+            const cantidad = parseInt(document.getElementById('cantidad-boletos').value) || 1;
+            const carrito = DB.get(CARRITO_KEY);
+            const precioTotalUnitario = precioBase + extraSeleccionado;
+            const nombreItemConZona = `${evento.nombre} [${nombreZonaSeleccionada}]`;
 
-        alert(`¡Se han añadido ${cantidad} entrada(s) al carrito!\nEvento: ${concierto.nombre}`);
-        
-        // Redirigir al usuario al carrito para proceder al pago
-        window.location.href = "carrito.html";
+            for (let i = 0; i < cantidad; i++) {
+                carrito.push({
+                    id: evento._id || evento.id,
+                    nombre: nombreItemConZona,
+                    precio: precioTotalUnitario
+                });
+            }
+
+            DB.set(CARRITO_KEY, carrito);
+            alert(`¡${cantidad} entrada(s) (${nombreZonaSeleccionada}) agregada(s) al carrito!`);
+            window.location.href = "carrito.html";
+        });
+
+    } catch (err) {
+        console.error(err);
+        alert("No se pudo cargar la información del evento.");
+        window.location.href = "../index.html";
     }
 });

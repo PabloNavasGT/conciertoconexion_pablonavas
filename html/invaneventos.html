@@ -3,43 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventario de Eventos</title>
+    <title>Inventario de Eventos | Conciertos Conectados</title>
     <link rel="stylesheet" href="../css/base.css">
 </head>
-<body>
+<body class="fondo-negro-panel">
 
     <header class="header-admin">
         <div class="header-contenido">
-            <h1 class="titulo-panel">Panel de Control: Inventario</h1>
+            <h1 class="titulo-panel">Eventos Publicados</h1>
             <nav class="nav-admin">
                 <a href="indexplus.html" class="btn-nav">Volver al Panel</a>
-                <a href="eventos.html" class="btn-nav">Nuevo Evento +</a>
-                <a href="../index.html" class="btn-nav">Vista Pública</a>
+                <a href="eventos.html" class="btn-nav">+ Crear Evento</a>
             </nav>
         </div>
     </header>
 
-    <main class="contenedor-admin-ancho">
-        <div class="tarjeta-admin-seccion">
+    <main class="contenedor-admin-ancho" style="max-width: 1400px; margin: 40px auto; padding: 0 25px;">
+        <div class="tarjeta-admin-seccion" style="background-color: var(--tarjeta-bg); padding: 30px; border-radius: 4px; border: 1px solid var(--borde-input);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 class="subtitulo-seccion" style="margin: 0;">Lista de Conciertos Activos en MongoDB</h2>
+            </div>
+
             <div class="tabla-responsive">
                 <table class="tabla-custom">
                     <thead>
                         <tr>
                             <th>Imagen</th>
-                            <th>Evento / Categoría</th>
-                            <th>Precio (Q)</th>
-                            <th>Hora</th>
-                            <th>ID</th>
-                            <th class="texto-centro">Acciones</th>
+                            <th>Nombre del Evento</th>
+                            <th>Categoría</th>
+                            <th>Ciudad / Recinto</th>
+                            <th>Precio Base</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody id="lista-inventario-body"></tbody>
+                    <tbody id="tabla-inventario-eventos"></tbody>
                 </table>
             </div>
         </div>
     </main>
 
     <script src="../js/import.js"></script>
-    <script src="../js/listevento.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', cargarEventosInventario);
+
+    async function cargarEventosInventario() {
+        const tabla = document.getElementById('tabla-inventario-eventos');
+        const API_URL = 'http://localhost:3000/api/concerts';
+
+        try {
+            const res = await fetch(API_URL);
+            if (!res.ok) throw new Error("Error al consultar la API");
+            
+            const eventos = await res.json();
+            tabla.innerHTML = '';
+
+            if (eventos.length === 0) {
+                tabla.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:30px; color:gray;">No hay eventos registrados en la base de datos.</td></tr>';
+                return;
+            }
+
+            eventos.forEach(ev => {
+                const tr = document.createElement('tr');
+                const idEvento = ev._id || ev.id;
+                const infoLugar = ev.recinto ? `📍 ${ev.recinto.nombreLugar}` : `📍 ${ev.ciudad || 'Guatemala'}`;
+
+                tr.innerHTML = `
+                    <td><img src="${ev.imagen}" class="img-mini" alt="${ev.nombre}"></td>
+                    <td><strong style="color: var(--blanco); font-size: 1.1rem;">${ev.nombre}</strong></td>
+                    <td><span style="color: var(--rosa-neon); text-transform: uppercase;">${ev.categoria || 'General'}</span></td>
+                    <td><span style="color: var(--amarillo-neon);">${infoLugar}</span></td>
+                    <td style="color: #00ff00; font-weight: bold;">Q${parseFloat(ev.precio || 0).toFixed(2)}</td>
+                    <td>
+                        <button class="btn-borrar" onclick="eliminarEvento('${idEvento}')">Eliminar</button>
+                    </td>
+                `;
+                tabla.appendChild(tr);
+            });
+        } catch (err) {
+            console.error(err);
+            tabla.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:30px; color:red;">No se pudo conectar con el servidor backend.</td></tr>';
+        }
+    }
+
+    async function eliminarEvento(id) {
+        if (!confirm("¿Estás seguro de que deseas eliminar este concierto de MongoDB?")) return;
+
+        try {
+            const res = await fetch(`http://localhost:3000/api/concerts/${id}`, { method: 'DELETE' });
+            if (res.ok) {
+                alert("Evento eliminado.");
+                cargarEventosInventario();
+            } else {
+                alert("No se pudo eliminar el evento.");
+            }
+        } catch (err) {
+            console.error(err);
+            alert("Error al conectar con la base de datos.");
+        }
+    }
+    </script>
 </body>
 </html>

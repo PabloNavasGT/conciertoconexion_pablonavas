@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Lugares y Recintos | Conciertos Conectados</title>
+    <link rel="stylesheet" href="../css/base.css">
+</head>
+<body class="fondo-negro-panel">
+
+    <header class="header-admin">
+        <div class="header-contenido">
+            <h1 class="titulo-panel">Gestión de Lugares y Recintos</h1>
+            <nav class="nav-admin">
+                <a href="indexplus.html" class="btn-nav">Volver al Panel</a>
+                <a href="../index.html" class="btn-nav">Vista Pública</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="contenedor-admin-ancho" style="max-width: 900px; margin: 40px auto; padding: 0 20px;">
+        
+        <!-- Formulario para registrar un nuevo lugar -->
+        <div class="tarjeta-admin-seccion" style="background-color: var(--tarjeta-bg); padding: 30px; border-radius: 4px; border: 1px solid var(--rojo-neon); box-shadow: var(--glow-naranja); margin-bottom: 30px;">
+            <h2 class="subtitulo-seccion" style="color: var(--amarillo-neon); margin-bottom: 20px;">Registrar Nuevo Recinto</h2>
+            
+            <form id="form-lugar">
+                <div class="campo">
+                    <label for="tipo-recinto">Tipo de Recinto</label>
+                    <select id="tipo-recinto" required style="width: 100%; padding: 12px; background: var(--gris-input); color: var(--blanco); border: 1px solid var(--borde-input); border-radius: 2px;">
+                        <option value="">Selecciona el tipo de lugar</option>
+                        <option value="estadio">Estadio</option>
+                        <option value="teatro">Teatro</option>
+                        <option value="alternativo">Lugar Alternativo</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label for="nombre-recinto">Nombre del Lugar / Estadio / Teatro</label>
+                    <input type="text" id="nombre-recinto" placeholder="Ej. Estadio Doroteo Guamuch Flores" required>
+                </div>
+
+                <div class="campo">
+                    <label for="direccion-recinto">Dirección</label>
+                    <input type="text" id="direccion-recinto" placeholder="Ciudad, Zona, Dirección exacta" required>
+                </div>
+
+                <div class="campo">
+                    <label>
+                        <input type="checkbox" id="recinto-disponible" checked> ¿Está disponible para eventos?
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-guardar" style="width: 100%; margin-top: 15px;">GUARDAR LUGAR</button>
+            </form>
+        </div>
+
+        <!-- Lista de Lugares Registrados -->
+        <div class="tarjeta-admin-seccion" style="background-color: var(--tarjeta-bg); padding: 30px; border-radius: 4px; border: 1px solid var(--borde-input);">
+            <h2 class="subtitulo-seccion" style="margin-bottom: 15px;">Recintos Registrados</h2>
+            <div class="tabla-responsive">
+                <table class="tabla-custom">
+                    <thead>
+                        <tr>
+                            <th>Nombre del Lugar</th>
+                            <th>Tipo</th>
+                            <th>Dirección</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-lugares"></tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="../js/import.js"></script>
+    <script src="../js/lugares_3.js"></script>
+</body>
+</html>
