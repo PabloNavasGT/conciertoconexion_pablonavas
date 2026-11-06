@@ -50,6 +50,7 @@ El proyecto sigue una arquitectura limpia por capas separando la infraestructura
  ┃     ┗ 📜 saleRoutes.js         # Rutas de registro de pasarela de pagos
  ┣ 📜 .env                        # Variables de entorno (Puerto, URI de BD, Secretos JWT)
  ┣ 📜 .gitignore                  # Archivos ignorados por Git
+ ┣ 📜README.md
  ┣ 📜 app.js                      # Configuración central de Express y middlewares globales
  ┣ 📜 server.js                   # Punto de entrada (Entry point) para arrancar el servidor
  ┗ 📜 index.html                  # Cartelera pública principal de la plataforma
